@@ -1,0 +1,12 @@
+#editors tmp files
+*~
+.~
+.~*
+*.swp
+
+#ctags
+tags
+
+#object files
+*.opp
+
