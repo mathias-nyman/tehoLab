@@ -5,11 +5,11 @@ MatrixMult1Cpp:
 	$(D)/$@
 
 MatrixMult2Cpp:
-	@g++ -o $(D)/$@ $(D)/MatrixMult1.cpp
+	@g++ -o $(D)/$@ $(D)/MatrixMult2.cpp
 	$(D)/$@
 
 MatrixMult3Cpp:
-	@g++ -o $(D)/$@ $(D)/MatrixMult1.cpp
+	@g++ -o $(D)/$@ $(D)/MatrixMult3.cpp
 	$(D)/$@
 
 
