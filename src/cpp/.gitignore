@@ -1,1 +1,12 @@
 *.o
+
+Concat1Cpp
+Concat2Cpp
+Concat3Cpp
+MatrixMult1Cpp
+MatrixMult2Cpp
+MatrixMult3Cpp
+Regexp1Cpp
+Regexp2Cpp
+Regexp3Cpp
+
