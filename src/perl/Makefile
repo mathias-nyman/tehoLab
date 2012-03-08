@@ -12,13 +12,16 @@ REGEXP_DATA ?= ../../data/regexp/data.txt
 allPerl: MatrixMult1Perl MatrixMult2Perl MatrixMult3Perl Concat1Perl Concat2Perl Concat3Perl Regexp1Perl Regexp2Perl Regexp3Perl
 
 MatrixMult1Perl:
-	perl $(D)/MatrixMult1.pl
+	perl $(D)/MatrixMult1.pl $(MATRIX_MULT_DATA) 100
+	perl $(D)/MatrixMult1.pl $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult2Perl:
-	perl $(D)/MatrixMult2.pl
+	perl $(D)/MatrixMult2.pl $(MATRIX_MULT_DATA) 100
+	perl $(D)/MatrixMult2.pl $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult3Perl:
-	perl $(D)/MatrixMult3.pl
+	perl $(D)/MatrixMult3.pl $(MATRIX_MULT_DATA) 100
+	perl $(D)/MatrixMult3.pl $(MATRIX_MULT_DATA) 100 --float
 
 
 Concat1Perl:

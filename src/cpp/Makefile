@@ -13,15 +13,18 @@ allCpp: MatrixMult1Cpp MatrixMult2Cpp MatrixMult3Cpp Concat1Cpp Concat2Cpp Conca
 
 MatrixMult1Cpp:
 	@g++ -o $(D)/$@ $(D)/MatrixMult1.cpp
-	$(D)/$@
+	$(D)/$@ $(MATRIX_MULT_DATA) 100
+	$(D)/$@ $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult2Cpp:
 	@g++ -o $(D)/$@ $(D)/MatrixMult2.cpp
-	$(D)/$@
+	$(D)/$@ $(MATRIX_MULT_DATA) 100
+	$(D)/$@ $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult3Cpp:
 	@g++ -o $(D)/$@ $(D)/MatrixMult3.cpp
-	$(D)/$@
+	$(D)/$@ $(MATRIX_MULT_DATA) 100
+	$(D)/$@ $(MATRIX_MULT_DATA) 100 --float
 
 
 Concat1Cpp:

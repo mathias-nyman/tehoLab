@@ -15,15 +15,18 @@ allJava: MatrixMult1Java MatrixMult2Java MatrixMult3Java Concat1Java Concat2Java
 
 MatrixMult1Java:
 	@javac $(D)/MatrixMult1.java
-	$(JAVA) -cp $(D) MatrixMult1
+	$(JAVA) -cp $(D) MatrixMult1 $(MATRIX_MULT_DATA) 100
+	$(JAVA) -cp $(D) MatrixMult1 $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult2Java:
 	@javac $(D)/MatrixMult2.java
-	$(JAVA) -cp $(D) MatrixMult2
+	$(JAVA) -cp $(D) MatrixMult2 $(MATRIX_MULT_DATA) 100
+	$(JAVA) -cp $(D) MatrixMult2 $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult3Java:
 	@javac $(D)/MatrixMult3.java
-	$(JAVA) -cp $(D) MatrixMult3
+	$(JAVA) -cp $(D) MatrixMult3 $(MATRIX_MULT_DATA) 100
+	$(JAVA) -cp $(D) MatrixMult3 $(MATRIX_MULT_DATA) 100 --float
 
 
 Concat1Java:

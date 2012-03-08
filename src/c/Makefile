@@ -13,15 +13,18 @@ allC: MatrixMult1C MatrixMult2C MatrixMult3C Concat1C Concat2C Concat3C Regexp1C
 
 MatrixMult1C:
 	@gcc -o $(D)/$@ $(D)/MatrixMult1.c
-	$(D)/$@
+	$(D)/$@ $(MATRIX_MULT_DATA) 100
+	$(D)/$@ $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult2C:
 	@gcc -o $(D)/$@ $(D)/MatrixMult2.c
-	$(D)/$@
+	$(D)/$@ $(MATRIX_MULT_DATA) 100
+	$(D)/$@ $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult3C:
 	@gcc -o $(D)/$@ $(D)/MatrixMult3.c
-	$(D)/$@
+	$(D)/$@ $(MATRIX_MULT_DATA) 100
+	$(D)/$@ $(MATRIX_MULT_DATA) 100 --float
 
 
 Concat1C:

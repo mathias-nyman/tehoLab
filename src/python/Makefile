@@ -12,13 +12,16 @@ REGEXP_DATA ?= ../../data/regexp/data.txt
 allPython: MatrixMult1Python MatrixMult2Python MatrixMult3Python Concat1Python Concat2Python Concat3Python Regexp1Python Regexp2Python Regexp3Python
 
 MatrixMult1Python:
-	python $(D)/MatrixMult1.py
+	python $(D)/MatrixMult1.py $(MATRIX_MULT_DATA) 100
+	python $(D)/MatrixMult1.py $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult2Python:
-	python $(D)/MatrixMult2.py
+	python $(D)/MatrixMult2.py $(MATRIX_MULT_DATA) 100
+	python $(D)/MatrixMult2.py $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult3Python:
-	python $(D)/MatrixMult3.py
+	python $(D)/MatrixMult3.py $(MATRIX_MULT_DATA) 100
+	python $(D)/MatrixMult3.py $(MATRIX_MULT_DATA) 100 --float
 
 
 Concat1Python:
