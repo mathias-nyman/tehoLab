@@ -1,8 +1,11 @@
 D :=.
 
+.PHONY: allPython
 .PHONY: MatrixMult1Python MatrixMult2Python MatrixMult3Python
 .PHONY: Concat1Python Concat2Python Concat3Python
 .PHONY: Regexp1Python Regexp2Python Regexp3Python
+
+allPython: MatrixMult1Python MatrixMult2Python MatrixMult3Python Concat1Python Concat2Python Concat3Python Regexp1Python Regexp2Python Regexp3Python
 
 MatrixMult1Python:
 	python $(D)/MatrixMult1.py

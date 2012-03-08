@@ -1,8 +1,11 @@
 D :=.
 
+.PHONY: allPerl
 .PHONY: MatrixMult1Perl MatrixMult2Perl MatrixMult3Perl
 .PHONY: Concat1Perl Concat2Perl Concat3Perl
 .PHONY: Regexp1Perl Regexp2Perl Regexp3Perl
+
+allPerl: MatrixMult1Perl MatrixMult2Perl MatrixMult3Perl Concat1Perl Concat2Perl Concat3Perl Regexp1Perl Regexp2Perl Regexp3Perl
 
 MatrixMult1Perl:
 	perl $(D)/MatrixMult1.pl

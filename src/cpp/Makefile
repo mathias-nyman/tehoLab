@@ -1,8 +1,11 @@
 D :=.
 
+.PHONY: allCpp
 .PHONY: MatrixMult1Cpp MatrixMult2Cpp MatrixMult3Cpp
 .PHONY: Concat1Cpp Concat2Cpp Concat3Cpp
 .PHONY: Regexp1Cpp Regexp2Cpp Regexp3Cpp
+
+allCpp: MatrixMult1Cpp MatrixMult2Cpp MatrixMult3Cpp Concat1Cpp Concat2Cpp Concat3Cpp Regexp1Cpp Regexp2Cpp Regexp3Cpp
 
 MatrixMult1Cpp:
 	@g++ -o $(D)/$@ $(D)/MatrixMult1.cpp

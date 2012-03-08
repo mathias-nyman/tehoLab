@@ -2,9 +2,12 @@ D :=.
 
 JAVA:=java -d64
 
+.PHONY: allJava
 .PHONY: MatrixMult1Java MatrixMult2Java MatrixMult3Java
 .PHONY: Concat1Java Concat2Java Concat3Java
 .PHONY: Regexp1Java Regexp2Java Regexp3Java
+
+allJava: MatrixMult1Java MatrixMult2Java MatrixMult3Java Concat1Java Concat2Java Concat3Java Regexp1Java Regexp2Java Regexp3Java
 
 MatrixMult1Java:
 	@javac $(D)/MatrixMult1.java
