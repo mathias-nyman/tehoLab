@@ -35,7 +35,8 @@ Regexp1Python:
 	python $(D)/Regexp1.py
 
 Regexp2Python:
-	python $(D)/Regexp2.py
+	python $(D)/Regexp2.py $(REGEXP_DATA)
+	python $(D)/Regexp2.py $(REGEXP_DATA) --with-or-operator
 
 Regexp3Python:
 	python $(D)/Regexp3.py
