@@ -1,5 +1,9 @@
 D :=.
 
+MATRIX_MULT_DATA:=../../data/matrix_mult/data.txt
+CONCAT_DATA:=../../data/concat/data.txt
+REGEXP_DATA:=../../data/regexp/data.txt
+
 .PHONY: allC
 .PHONY: MatrixMult1C MatrixMult2C MatrixMult3C
 .PHONY: Concat1C Concat2C Concat3C

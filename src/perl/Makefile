@@ -1,5 +1,9 @@
 D :=.
 
+MATRIX_MULT_DATA:=../../data/matrix_mult/data.txt
+CONCAT_DATA:=../../data/concat/data.txt
+REGEXP_DATA:=../../data/regexp/data.txt
+
 .PHONY: allPerl
 .PHONY: MatrixMult1Perl MatrixMult2Perl MatrixMult3Perl
 .PHONY: Concat1Perl Concat2Perl Concat3Perl

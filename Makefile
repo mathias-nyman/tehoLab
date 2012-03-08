@@ -1,5 +1,9 @@
 .PHONY: all
 
+MATRIX_MULT_DATA:=data/matrix_mult/data.txt
+CONCAT_DATA:=data/concat/data.txt
+REGEXP_DATA:=data/regexp/data.txt
+
 all: MatrixMult Concat Regexp
 	@echo "Done."
 
