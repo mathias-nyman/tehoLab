@@ -1,5 +1,9 @@
 D :=.
 
+.PHONY: MatrixMult1C MatrixMult2C MatrixMult3C
+.PHONY: Concat1C Concat2C Concat3C
+.PHONY: Regexp1C Regexp2C Regexp3C
+
 MatrixMult1C:
 	@gcc -o $(D)/$@ $(D)/MatrixMult1.c
 	$(D)/$@
