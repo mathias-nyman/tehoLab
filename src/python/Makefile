@@ -1,8 +1,8 @@
 D :=.
 
-MATRIX_MULT_DATA:=../../data/matrix_mult/data.txt
-CONCAT_DATA:=../../data/concat/data.txt
-REGEXP_DATA:=../../data/regexp/data.txt
+MATRIX_MULT_DATA ?= ../../data/matrix_mult/data.txt
+CONCAT_DATA ?= ../../data/concat/data.txt
+REGEXP_DATA ?= ../../data/regexp/data.txt
 
 .PHONY: allPython
 .PHONY: MatrixMult1Python MatrixMult2Python MatrixMult3Python
