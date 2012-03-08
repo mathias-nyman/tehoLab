@@ -23,7 +23,8 @@ def main():
     dimension = len(matrix)
     for i in range(dimension):
         for j in range(dimension):
-            result[i][j] = matrix[i][j] * matrix[j][i]
+            for k in range(dimension):
+                result[i][j] = result[i][j] + matrix[i][k] * matrix[k][j]
 
 if __name__ == '__main__':
     main()
