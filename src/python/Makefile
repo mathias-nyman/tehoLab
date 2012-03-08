@@ -22,13 +22,13 @@ MatrixMult3Python:
 
 
 Concat1Python:
-	python $(D)/Concat1.py
+	python $(D)/Concat1.py $(CONCAT_DATA)
 
 Concat2Python:
 	python $(D)/Concat2.py $(CONCAT_DATA)
 
 Concat3Python:
-	python $(D)/Concat3.py
+	python $(D)/Concat3.py $(CONCAT_DATA)
 
 
 Regexp1Python:

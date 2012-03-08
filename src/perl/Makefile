@@ -22,13 +22,13 @@ MatrixMult3Perl:
 
 
 Concat1Perl:
-	perl $(D)/Concat1.pl
+	perl $(D)/Concat1.pl $(CONCAT_DATA)
 
 Concat2Perl:
-	perl $(D)/Concat2.pl
+	perl $(D)/Concat2.pl $(CONCAT_DATA)
 
 Concat3Perl:
-	perl $(D)/Concat3.pl
+	perl $(D)/Concat3.pl $(CONCAT_DATA)
 
 
 Regexp1Perl:

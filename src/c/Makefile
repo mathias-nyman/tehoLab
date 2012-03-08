@@ -26,15 +26,15 @@ MatrixMult3C:
 
 Concat1C:
 	@gcc -o $(D)/$@ $(D)/Concat1.c
-	$(D)/$@
+	$(D)/$@ $(CONCAT_DATA)
 
 Concat2C:
 	@gcc -o $(D)/$@ $(D)/Concat2.c
-	$(D)/$@
+	$(D)/$@ $(CONCAT_DATA)
 
 Concat3C:
 	@gcc -o $(D)/$@ $(D)/Concat3.c
-	$(D)/$@
+	$(D)/$@ $(CONCAT_DATA)
 
 
 Regexp1C:

@@ -28,15 +28,15 @@ MatrixMult3Java:
 
 Concat1Java:
 	@javac $(D)/Concat1.java
-	$(JAVA) -cp $(D) Concat1
+	$(JAVA) -cp $(D) Concat1 $(CONCAT_DATA)
 
 Concat2Java:
 	@javac $(D)/Concat2.java
-	$(JAVA) -cp $(D) Concat2
+	$(JAVA) -cp $(D) Concat2 $(CONCAT_DATA)
 
 Concat3Java:
 	@javac $(D)/Concat3.java
-	$(JAVA) -cp $(D) Concat3
+	$(JAVA) -cp $(D) Concat3 $(CONCAT_DATA)
 
 
 Regexp1Java:

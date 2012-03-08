@@ -26,15 +26,15 @@ MatrixMult3Cpp:
 
 Concat1Cpp:
 	@g++ -o $(D)/$@ $(D)/Concat1.cpp
-	$(D)/$@
+	$(D)/$@ $(CONCAT_DATA)
 
 Concat2Cpp:
 	@g++ -o $(D)/$@ $(D)/Concat2.cpp
-	$(D)/$@
+	$(D)/$@ $(CONCAT_DATA)
 
 Concat3Cpp:
 	@g++ -o $(D)/$@ $(D)/Concat3.cpp
-	$(D)/$@
+	$(D)/$@ $(CONCAT_DATA)
 
 
 Regexp1Cpp:
