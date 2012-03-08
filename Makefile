@@ -3,9 +3,9 @@
 all: MatrixMult Concat Regexp
 	@echo "Done."
 
-MatrixMult: MatrixMultC MatrixMultCpp MatrixMultPython MatrixMultPerl
-Concat: ConcatC ConcatCpp ConcatPython ConcatPerl
-Regexp: RegexpC RegexpCpp RegexpPython RegexpPerl
+MatrixMult: MatrixMultC MatrixMultCpp MatrixMultJava MatrixMultPython MatrixMultPerl
+Concat: ConcatC ConcatCpp ConcatJava ConcatPython ConcatPerl
+Regexp: RegexpC RegexpCpp RegexpJava RegexpPython RegexpPerl
 
 MatrixMultC: D=src/c
 MatrixMultC: MatrixMult1C MatrixMult2C MatrixMult3C
@@ -25,6 +25,16 @@ ConcatCpp: Concat1Cpp Concat2Cpp Concat3Cpp
 
 RegexpCpp: D=src/cpp
 RegexpCpp: Regexp1Cpp Regexp2Cpp Regexp3Cpp
+
+
+MatrixMultJava: D=src/java
+MatrixMultJava: MatrixMult1Java MatrixMult2Java MatrixMult3Java
+
+ConcatJava: D=src/java
+ConcatJava: Concat1Java Concat2Java Concat3Java
+
+RegexpJava: D=src/java
+RegexpJava: Regexp1Java Regexp2Java Regexp3Java
 
 
 MatrixMultPython: D=src/python
@@ -49,6 +59,7 @@ RegexpPerl: Regexp1Perl Regexp2Perl Regexp3Perl
 
 include src/c/Makefile
 include src/cpp/Makefile
+include src/java/Makefile
 include src/python/Makefile
 include src/perl/Makefile
 
