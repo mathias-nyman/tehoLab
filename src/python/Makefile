@@ -32,12 +32,14 @@ Concat3Python:
 
 
 Regexp1Python:
-	python $(D)/Regexp1.py
+	python $(D)/Regexp1.py $(REGEXP_DATA)
+	python $(D)/Regexp1.py $(REGEXP_DATA) --with-or-operator
 
 Regexp2Python:
 	python $(D)/Regexp2.py $(REGEXP_DATA)
 	python $(D)/Regexp2.py $(REGEXP_DATA) --with-or-operator
 
 Regexp3Python:
-	python $(D)/Regexp3.py
+	python $(D)/Regexp3.py $(REGEXP_DATA)
+	python $(D)/Regexp3.py $(REGEXP_DATA) --with-or-operator
 

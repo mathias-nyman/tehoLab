@@ -39,13 +39,16 @@ Concat3C:
 
 Regexp1C:
 	@gcc -o $(D)/$@ $(D)/Regexp1.c
-	$(D)/$@
+	$(D)/$@ $(REGEXP_DATA)
+	$(D)/$@ $(REGEXP_DATA) --with-or-operator
 
 Regexp2C:
 	@gcc -o $(D)/$@ $(D)/Regexp2.c
-	$(D)/$@
+	$(D)/$@ $(REGEXP_DATA)
+	$(D)/$@ $(REGEXP_DATA) --with-or-operator
 
 Regexp3C:
 	@gcc -o $(D)/$@ $(D)/Regexp3.c
-	$(D)/$@
+	$(D)/$@ $(REGEXP_DATA)
+	$(D)/$@ $(REGEXP_DATA) --with-or-operator
 

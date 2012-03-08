@@ -32,11 +32,14 @@ Concat3Perl:
 
 
 Regexp1Perl:
-	perl $(D)/Regexp1.pl
+	perl $(D)/Regexp1.pl $(REGEXP_DATA)
+	perl $(D)/Regexp1.pl $(REGEXP_DATA) --with-or-operator
 
 Regexp2Perl:
-	perl $(D)/Regexp2.pl
+	perl $(D)/Regexp2.pl $(REGEXP_DATA)
+	perl $(D)/Regexp2.pl $(REGEXP_DATA) --with-or-operator
 
 Regexp3Perl:
-	perl $(D)/Regexp3.pl
+	perl $(D)/Regexp3.pl $(REGEXP_DATA)
+	perl $(D)/Regexp3.pl $(REGEXP_DATA) --with-or-operator
 

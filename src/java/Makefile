@@ -41,13 +41,16 @@ Concat3Java:
 
 Regexp1Java:
 	@javac $(D)/Regexp1.java
-	$(JAVA) -cp $(D) Regexp1
+	$(JAVA) -cp $(D) Regexp1 $(REGEXP_DATA)
+	$(JAVA) -cp $(D) Regexp1 $(REGEXP_DATA) --with-or-operator
 
 Regexp2Java:
 	@javac $(D)/Regexp2.java
-	$(JAVA) -cp $(D) Regexp2
+	$(JAVA) -cp $(D) Regexp2 $(REGEXP_DATA)
+	$(JAVA) -cp $(D) Regexp2 $(REGEXP_DATA) --with-or-operator
 
 Regexp3Java:
 	@javac $(D)/Regexp3.java
-	$(JAVA) -cp $(D) Regexp3
+	$(JAVA) -cp $(D) Regexp3 $(REGEXP_DATA)
+	$(JAVA) -cp $(D) Regexp3 $(REGEXP_DATA) --with-or-operator
 

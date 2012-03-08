@@ -39,13 +39,16 @@ Concat3Cpp:
 
 Regexp1Cpp:
 	@g++ -o $(D)/$@ $(D)/Regexp1.cpp
-	$(D)/$@
+	$(D)/$@ $(REGEXP_DATA)
+	$(D)/$@ $(REGEXP_DATA) --with-or-operator
 
 Regexp2Cpp:
 	@g++ -o $(D)/$@ $(D)/Regexp2.cpp
-	$(D)/$@
+	$(D)/$@ $(REGEXP_DATA)
+	$(D)/$@ $(REGEXP_DATA) --with-or-operator
 
 Regexp3Cpp:
 	@g++ -o $(D)/$@ $(D)/Regexp3.cpp
-	$(D)/$@
+	$(D)/$@ $(REGEXP_DATA)
+	$(D)/$@ $(REGEXP_DATA) --with-or-operator
 
