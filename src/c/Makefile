@@ -5,11 +5,11 @@ MatrixMult1C:
 	$(D)/$@
 
 MatrixMult2C:
-	@gcc -o $(D)/$@ $(D)/MatrixMult1.c
+	@gcc -o $(D)/$@ $(D)/MatrixMult2.c
 	$(D)/$@
 
 MatrixMult3C:
-	@gcc -o $(D)/$@ $(D)/MatrixMult1.c
+	@gcc -o $(D)/$@ $(D)/MatrixMult3.c
 	$(D)/$@
 
 
