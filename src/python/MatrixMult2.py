@@ -10,12 +10,15 @@ def main():
     matrix = []
     #TODO: this might not be the proper solution
     #      if input file is not in "matrix" format also
-    for idx, line in enumerate(lines):
-        if idx == dimension:
-            break
-        if itemType == 0:
-            matrix[idx] = [int(i) for i in line.split()][:dimension]
-        else:
+    if itemType == 0:
+        for idx, line in enumerate(lines):
+            if idx == dimension:
+                break
+                matrix[idx] = [int(i) for i in line.split()][:dimension]
+    else:
+        for idx, line in enumerate(lines):
+            if idx == dimension:
+                break
             matrix[idx] = [float(i) for i in line.split()][:dimension]
 
     #TODO: how did matrix multiplication go again...?
