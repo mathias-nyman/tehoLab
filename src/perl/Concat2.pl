@@ -13,5 +13,5 @@ my $start = Time::HiRes::gettimeofday();
 main();
 my $end = Time::HiRes::gettimeofday();
 my ($user, $system, $child_user, $child_system) = times;
-print $user,' ',$system,' ',$child_user,' ',$child_system,' ',($end - $start)
+print join ' ', ($user, $system, $child_user, $child_system, ($end - $start)), "\n"
 
