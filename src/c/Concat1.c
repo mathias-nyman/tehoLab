@@ -1,5 +1,5 @@
 /*
- *  MatrixMult1.c
+ *  Concat1.c
  *  
  *
  *  Created by Jukka Aro on 10.3.2012.
