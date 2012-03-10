@@ -9,6 +9,7 @@
 #include <stdlib.h>
 
 #define INDEX(array, dim, row, col) (*((array)+(dim)*(row)+(col)))
+#define FLOATS_PER_ROW 5000
 
 float scan_float(FILE *f)
 {
@@ -23,11 +24,17 @@ void read_input_file_int(const char *input_file, int dim, int *in_matrix)
 	
 	if(f != 0)
 	{
-		int i;
+		int i, j;
 		
-		for(i = 0; i < dim*dim; i++)
-			in_matrix[i] = (int)scan_float(f);;
-		
+		for(i = 0; i < dim; i++)
+		{
+			for(j = 0; j < dim; j++)
+			{
+				INDEX(in_matrix, dim, i, j) = (int)scan_float(f);
+			}
+			for(; j < FLOATS_PER_ROW; j++)
+				scan_float(f);
+		}
 		fclose(f);
 	}
 }
@@ -38,16 +45,22 @@ void read_input_file_float(const char *input_file, int dim, float *in_matrix)
 	
 	if(f != 0)
 	{
-		int i;
+		int i, j;
 		
-		for(i = 0; i < dim*dim; i++)
-			in_matrix[i] = scan_float(f);;
-		
+		for(i = 0; i < dim; i++)
+		{
+			for(j = 0; j < dim; j++)
+			{
+				INDEX(in_matrix, dim, i, j) = scan_float(f);
+			}
+			for(; j < FLOATS_PER_ROW; j++)
+				scan_float(f);
+		}
 		fclose(f);
 	}
 }
 
-int* multiply_int_matrix(const char *input_file, int dim)
+void multiply_int_matrix(const char *input_file, int dim)
 {
 	int *in_matrix = malloc(dim*dim*sizeof(int));
 	
@@ -79,12 +92,12 @@ int* multiply_int_matrix(const char *input_file, int dim)
 			INDEX(out_matrix, dim, i, j) = res;
 		}
 	}
-	
+
 	free(in_matrix);
-	return(out_matrix);
+	free(out_matrix);
 }
 
-float* multiply_float_matrix(const char *input_file, int dim)
+void multiply_float_matrix(const char *input_file, int dim)
 {
 	float *in_matrix = malloc(dim*dim*sizeof(float));
 	
@@ -118,12 +131,12 @@ float* multiply_float_matrix(const char *input_file, int dim)
 	}
 	
 	free(in_matrix);
-	return(out_matrix);
+	free(out_matrix);
 }
 
 void parse_params(int argc, char **argv, char **input_file, int *dim, int *is_float)
 {
-	if(argc < 3 || argc > 4)
+	if(argc < 3 || argc > 5)
 	{
 		fprintf(stderr, "Illegal number of arguments\n");
 		exit(1);
@@ -157,23 +170,9 @@ int main(int argc, char **argv)
 	parse_params(argc, argv, &input_file, &dim, &is_float);
 	
 	if(is_float)
-	{
-		float *result = multiply_float_matrix(input_file, dim);
-		int i, j;
-		for(i = 0; i < dim; i++)
-			for(j = 0; j<  dim; j++)
-				printf("%f ", INDEX(result, dim, i, j));
-		free(result);
-	}
+		multiply_float_matrix(input_file, dim);
 	else
-	{
-		int *result = multiply_int_matrix(input_file, dim);
-		int i, j;
-		for(i = 0; i < dim; i++)
-			for(j = 0; j<  dim; j++)
-				printf("%d ", INDEX(result, dim, i, j));
-		free(result);
-	}
+		multiply_int_matrix(input_file, dim);
 
     return 0;
 }
