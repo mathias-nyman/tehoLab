@@ -49,8 +49,7 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 	
-	char *input_file = argv[1];
-	concatenate(input_file);
+	concatenate(argv[1]);
 	
     return 0;
 }
