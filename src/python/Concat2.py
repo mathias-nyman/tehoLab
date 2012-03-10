@@ -5,9 +5,7 @@ def main():
     f = open(sys.argv[1])
     lines = f.readlines()
     f.close()
-    concatenated = ''
-    for line in lines:
-        concatenated = concatenated + line
+    concatenated = ''.join(lines)
 
 if __name__ == '__main__':
     main()
