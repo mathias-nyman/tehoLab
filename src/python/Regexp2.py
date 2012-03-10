@@ -18,7 +18,7 @@ def main():
     for line in lines:
         match = pattern.search(line)
         if match is not None:
-            amountFound = amountFound + 1
+            amountFound = amountFound + len(match.groups)
 
 if __name__ == '__main__':
     main()
