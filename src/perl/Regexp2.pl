@@ -8,18 +8,14 @@ sub main {
     close FH;
     my $withOrOperator = ($#ARGV > 0 and $ARGV[1] eq '--with-or-operator') ? 1:0;
     my $amountFound = 0;
+    my $pattern = qr/\d+|\w+\d+\./;
     if ($withOrOperator) {
-        foreach (@lines) {
-            my $n = m/\d+|\w+\d+\./g;
-            $amountFound += $n;
-        }
+        $pattern = qr/\d+|\w+\d+\./;
     }
-    else {
-        foreach (@lines) {
-            my $n = m/\d+|\w+\d+\./g;
-            $amountFound += $n;
-        }
+    foreach (@lines) {
+        $amountFound += $pattern;
     }
+    print $amountFound, "\n";
 }
 
 my $start = Time::HiRes::gettimeofday();
