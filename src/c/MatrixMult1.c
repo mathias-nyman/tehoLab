@@ -10,14 +10,14 @@
 
 #define INDEX(array, dim, row, col) (*((array)+(dim)*(row)+(col)))
 
-double scan_double(FILE *f)
+float scan_float(FILE *f)
 {
-	double d = 0;
-	fscanf(f, "%lf", &d);
-	return d;
+	float fl = 0;
+	fscanf(f, "%f", &fl);
+	return fl;
 }
 
-void read_input_file(const char *input_file, int dim, int *in_matrix)
+void read_input_file_int(const char *input_file, int dim, int *in_matrix)
 {
 	FILE *f = fopen(input_file, "r");
 	
@@ -26,7 +26,22 @@ void read_input_file(const char *input_file, int dim, int *in_matrix)
 		int i;
 		
 		for(i = 0; i < dim*dim; i++)
-			in_matrix[i] = (int)scan_double(f);;
+			in_matrix[i] = (int)scan_float(f);;
+		
+		fclose(f);
+	}
+}
+
+void read_input_file_float(const char *input_file, int dim, float *in_matrix)
+{
+	FILE *f = fopen(input_file, "r");
+	
+	if(f != 0)
+	{
+		int i;
+		
+		for(i = 0; i < dim*dim; i++)
+			in_matrix[i] = scan_float(f);;
 		
 		fclose(f);
 	}
@@ -42,7 +57,7 @@ int* multiply_int_matrix(const char *input_file, int dim)
 		exit(1);
 	}
 	
-	read_input_file(input_file, dim, in_matrix);
+	read_input_file_int(input_file, dim, in_matrix);
 	
 	int *out_matrix = malloc(dim*dim*sizeof(int));
 	
@@ -59,6 +74,43 @@ int* multiply_int_matrix(const char *input_file, int dim)
 		for(j = 0; j < dim; j++)
 		{
 			int res = 0;
+			for(k = 0; k < dim; k++)
+				res += INDEX(in_matrix, dim, i, k)*INDEX(in_matrix, dim, k, j);
+			INDEX(out_matrix, dim, i, j) = res;
+		}
+	}
+	
+	free(in_matrix);
+	return(out_matrix);
+}
+
+float* multiply_float_matrix(const char *input_file, int dim)
+{
+	float *in_matrix = malloc(dim*dim*sizeof(float));
+	
+	if(!in_matrix)
+	{
+		fprintf(stderr, "Malloc failed\n");
+		exit(1);
+	}
+	
+	read_input_file_float(input_file, dim, in_matrix);
+	
+	float *out_matrix = malloc(dim*dim*sizeof(float));
+	
+	if(!out_matrix)
+	{
+		fprintf(stderr, "Malloc failed\n");
+		exit(1);
+	}
+	
+	int i, j, k;
+	
+	for(i = 0; i < dim; i++)
+	{
+		for(j = 0; j < dim; j++)
+		{
+			float res = 0;
 			for(k = 0; k < dim; k++)
 				res += INDEX(in_matrix, dim, i, k)*INDEX(in_matrix, dim, k, j);
 			INDEX(out_matrix, dim, i, j) = res;
@@ -106,6 +158,12 @@ int main(int argc, char **argv)
 	
 	if(is_float)
 	{
+		float *result = multiply_float_matrix(input_file, dim);
+		int i, j;
+		for(i = 0; i < dim; i++)
+			for(j = 0; j<  dim; j++)
+				printf("%f ", INDEX(result, dim, i, j));
+		free(result);
 	}
 	else
 	{
