@@ -1,4 +1,4 @@
-.PHONY: all
+.PHONY: all data
 
 MATRIX_MULT_DATA:=data/matrix_mult/data.txt
 CONCAT_DATA:=data/concat/data.txt
@@ -6,6 +6,9 @@ REGEXP_DATA:=data/regexp/data.txt
 
 all: MatrixMult Concat Regexp
 	@echo "Done."
+
+data:
+	@wget http://dl.dropbox.com/u/31514170/data.txt -O $(MATRIX_MULT_DATA)
 
 MatrixMult: MatrixMultC MatrixMultCpp MatrixMultJava MatrixMultPython MatrixMultPerl
 Concat: ConcatC ConcatCpp ConcatJava ConcatPython ConcatPerl
