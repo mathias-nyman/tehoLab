@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 class MatrixMult2 {
-    static <T> void matrixMult(T[][] result, T[][] matrix) {
+    static <T extends Number> void matrixMult(T[][] result, T[][] matrix) {
         for (int i=0; i < matrix.length; ++i) {
             for (int j=0; j < matrix.length; ++j) {
                 for (int k=0; k < matrix.length; ++k) {
@@ -14,8 +14,8 @@ class MatrixMult2 {
     }
 
     public static void main(String[] args) {
-        int[][] intMatrix = new int[0][0];
-        float[][] floatMatrix = new float[0][0];
+        Integer[][] intMatrix = new Integer[0][0];
+        Float[][] floatMatrix = new Float[0][0];
         int dimension = 0;
         boolean isFloat = false;
 
@@ -27,8 +27,8 @@ class MatrixMult2 {
                 isFloat = true;
             }
 
-            intMatrix = new int[dimension][dimension];
-            floatMatrix = new float[dimension][dimension];
+            intMatrix = new Integer[dimension][dimension];
+            floatMatrix = new Float[dimension][dimension];
 
             String line;
             while ((line = br.readLine()) != null) {
@@ -43,8 +43,8 @@ class MatrixMult2 {
             br.close();
         } catch (Exception e) { System.out.println(e); }
 
-        int[][] intResult = new int[dimension][dimension];
-        float[][] floatResult = new float[dimension][dimension];
+        Integer[][] intResult = new Integer[dimension][dimension];
+        Float[][] floatResult = new Float[dimension][dimension];
         if (isFloat)
             matrixMult(floatResult, floatMatrix);
         else
