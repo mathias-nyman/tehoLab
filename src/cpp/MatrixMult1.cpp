@@ -72,7 +72,7 @@ void multiply_matrix(const char *input_file, int dim)
 	}
 	
 	clock_t end = clock();
-	printf("%d %lf\n", dim, (double)(end-start)/CLOCKS_PER_SEC);
+	std::cout << dim << " " << (double)(end-start)/CLOCKS_PER_SEC << std::endl;
 	
 	delete in_matrix;
 	delete out_matrix;
