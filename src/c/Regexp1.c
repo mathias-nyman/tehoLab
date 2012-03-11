@@ -15,7 +15,6 @@
 
 void regex_match(const char *input_file, int or_operator)
 {
-//	re_set_syntax(RE_SYNTAX_POSIX_EXTENDED);
 	FILE *f = fopen(input_file, "r");
 	
 	if(f == 0)
