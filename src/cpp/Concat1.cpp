@@ -5,6 +5,7 @@
  *  Created by Jukka Aro on 11.3.2012.
  *
  */
+#include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <string>
