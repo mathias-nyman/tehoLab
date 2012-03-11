@@ -14,8 +14,7 @@ sub main {
     if ($itemType == 0) {
         foreach (@lines) {
             chomp();
-            #TODO: convert @row elements to integers
-            my @row = split /\s+/;
+            my @row = map { int } split /\s+/;
             push @matrix, @row[0, $dimension - 1];
             if ($rowNum++ == $dimension) { last; }
         }
@@ -30,7 +29,7 @@ sub main {
     }
 
     my @result = ();
-    for my $i (0 .. scalar @matrix - 1) {
+    for my $i (0 .. $dimension - 1) {
         for my $j (0 .. $dimension - 1) {
             for my $k (0 .. $dimension - 1) {
                 $result[$i][$j] = $result[$i][$j] + $matrix[$i][$k] * $matrix[$k][$j];
