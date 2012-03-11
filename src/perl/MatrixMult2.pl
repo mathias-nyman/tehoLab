@@ -28,7 +28,16 @@ sub main {
         }
     }
 
+    #NOTE: Initializing the result matrix does not work like this:
+    #        my @result = ([(0) * $dimension]) * $dimension;
+    #      Although it should, shouldn't it?
     my @result = ();
+    for my $i (0 .. $dimension -1) {
+        for my $j (0 .. $dimension -1) {
+            push @{$result[$i]}, 0;
+        }
+    }
+
     for my $i (0 .. $dimension - 1) {
         for my $j (0 .. $dimension - 1) {
             for my $k (0 .. $dimension - 1) {
