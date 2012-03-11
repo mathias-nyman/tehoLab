@@ -3,7 +3,20 @@ import java.util.List;
 import java.util.ArrayList;
 
 class MatrixMult2 {
-    static <T extends Number> void matrixMult(T[][] result, T[][] matrix) {
+    //NOTE: unfortunately Java can't handle generic arithemtics which this would need
+    //static <T extends Number> void matrixMult(T[][] result, T[][] matrix) {
+
+    static void matrixMultInt(int[][] result, int[][] matrix) {
+        for (int i=0; i < matrix.length; ++i) {
+            for (int j=0; j < matrix.length; ++j) {
+                for (int k=0; k < matrix.length; ++k) {
+                    result[i][j] += matrix[i][k] * matrix[k][j];
+                }
+            }
+        }
+    }
+
+    static void matrixMultFloat(float[][] result, float[][] matrix) {
         for (int i=0; i < matrix.length; ++i) {
             for (int j=0; j < matrix.length; ++j) {
                 for (int k=0; k < matrix.length; ++k) {
@@ -14,8 +27,8 @@ class MatrixMult2 {
     }
 
     public static void main(String[] args) {
-        Integer[][] intMatrix = new Integer[0][0];
-        Float[][] floatMatrix = new Float[0][0];
+        int[][] intMatrix = new int[0][0];
+        float[][] floatMatrix = new float[0][0];
         int dimension = 0;
         boolean isFloat = false;
 
@@ -27,28 +40,31 @@ class MatrixMult2 {
                 isFloat = true;
             }
 
-            intMatrix = new Integer[dimension][dimension];
-            floatMatrix = new Float[dimension][dimension];
+            intMatrix = new int[dimension][dimension];
+            floatMatrix = new float[dimension][dimension];
 
             String line;
+            int row = 0;
             while ((line = br.readLine()) != null) {
                 String[] strArray = line.split("\\s+");
-                for (int i=0; i < strArray.length; ++i) {
+                for (int i=0; i < dimension; ++i) {
                     if (isFloat)
                         floatMatrix[0][i] = Float.parseFloat(strArray[i]);
                     else
-                        intMatrix[0][i] = Integer.parseInt(strArray[i]);
+                        intMatrix[0][i] = (int)Float.parseFloat(strArray[i]);
                 }
+                if (++row == dimension)
+                    break;
             }
             br.close();
         } catch (Exception e) { System.out.println(e); }
 
-        Integer[][] intResult = new Integer[dimension][dimension];
-        Float[][] floatResult = new Float[dimension][dimension];
+        int[][] intResult = new int[dimension][dimension];
+        float[][] floatResult = new float[dimension][dimension];
         if (isFloat)
-            matrixMult(floatResult, floatMatrix);
+            matrixMultFloat(floatResult, floatMatrix);
         else
-            matrixMult(intResult, intMatrix);
+            matrixMultInt(intResult, intMatrix);
 
         //TODO: add cpu time measurement
     }
