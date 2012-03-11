@@ -24,7 +24,7 @@ class Regexp2 {
         int amountFound = 0;
         for (int i=0; i < lines.size(); i++) {
             match = pattern.matcher(lines.get(i));
-            while (match.find()) {
+            if (match.find()) {
                 amountFound++;
             }
         }
