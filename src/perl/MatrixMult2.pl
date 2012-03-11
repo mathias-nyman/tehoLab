@@ -15,7 +15,7 @@ sub main {
         foreach (@lines) {
             chomp();
             my @row = map { int } split /\s+/;
-            push @matrix, @row[0, $dimension - 1];
+            push @matrix, [@row[0 .. $dimension - 1]];
             if ($rowNum++ == $dimension) { last; }
         }
     }
@@ -23,7 +23,7 @@ sub main {
         foreach (@lines) {
             chomp();
             my @row = split /\s+/;
-            push @matrix, @row[0, $dimension - 1];
+            push @matrix, [@row[0 .. $dimension - 1]];
             if ($rowNum++ == $dimension) { last; }
         }
     }
