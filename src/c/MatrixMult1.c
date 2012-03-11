@@ -78,6 +78,7 @@ void multiply_int_matrix(const char *input_file, int dim)
 	if(!out_matrix)
 	{
 		fprintf(stderr, "Malloc failed\n");
+		free(in_matrix);
 		exit(1);
 	}
 	
