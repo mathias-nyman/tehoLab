@@ -5,6 +5,8 @@
  *  Created by Jukka Aro on 11.3.2012.
  *
  */
+#include <cstdlib>
+#include <cstring>
 #include <iostream>
 #include <fstream>
 #include <vector>
