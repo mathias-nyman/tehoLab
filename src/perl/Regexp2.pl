@@ -13,7 +13,7 @@ sub main {
         $pattern = qr/\d+|\w+\d+\./;
     }
     foreach (@lines) {
-        $amountFound++ while (/$pattern/g);
+        $amountFound++ if (/$pattern/);
     }
 }
 
