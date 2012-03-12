@@ -2,7 +2,7 @@
 #include <istream>
 #include <fstream>
 #include <vector>
-#include <regex>
+//#include <regex> //NOTE: see other note
 
 using namespace std;
 int main(int argv, char** argc) {
