@@ -6,11 +6,14 @@
 using namespace std;
 
 template <typename T>
-void matrixMult(ifstream& inStream, vector<vector<T> > matrix, size_t dimension) {
+void matrixMult(ifstream& inStream, size_t dimension) {
+    vector<T> row(dimension, 0);
+    vector<vector<T> > matrix(dimension, row);
+    vector<vector<T> > result(dimension, row);
+
     string notNeeded;
     double number;
-    size_t rowNr = -1;
-    size_t colNr = -1;
+    size_t rowNr, colNr = -1;
     while (inStream.good() and ++rowNr < dimension) {
         while (++colNr < dimension) {
             inStream >> number;
@@ -21,13 +24,13 @@ void matrixMult(ifstream& inStream, vector<vector<T> > matrix, size_t dimension)
     }
     inStream.close();
 
-    //TODO: matrix multiplication; this does not work..
-    /*
-    vector<vector<T> >::const_iterator it = matrix.begin();
-    vector<vector<T> >::const_iterator end = matrix.end();
-    for (; it != end; ++it) {
+    for (size_t i = 0; i < dimension ; ++i) {
+        for (size_t j = 0; j < dimension ; ++j) {
+            for (size_t k = 0; k < dimension ; ++k) {
+                result[i][j] = result[i][j] + matrix[i][k] * matrix[k][j];
+            }
+        }
     }
-    */
 }
 
 int main(int argv, char** argc) {
@@ -37,14 +40,10 @@ int main(int argv, char** argc) {
     sscanf(argc[2], "%d", &dimension);
 
     if (argv > 3 and argc[3] == "--float") {
-        vector<double> row(dimension, 0);
-        vector<vector<double> > matrix(dimension, row);
-        matrixMult(inStream, matrix, dimension);
+        matrixMult<int>(inStream, dimension);
     }
     else {
-        vector<int> row(dimension, 0);
-        vector<vector<int> > matrix(dimension, row);
-        matrixMult(inStream, matrix, dimension);
+        matrixMult<float>(inStream, dimension);
     }
 
     return 0;
