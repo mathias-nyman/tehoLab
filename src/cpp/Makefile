@@ -9,7 +9,7 @@ REGEXP_DATA ?= ../../data/regexp/data.txt
 .PHONY: Concat1Cpp Concat2Cpp Concat3Cpp
 .PHONY: Regexp1Cpp Regexp2Cpp Regexp3Cpp
 
-CXX:=g++ -std=c++0x
+CXX:=g++ -std=c++98
 
 allCpp: MatrixMult1Cpp MatrixMult2Cpp MatrixMult3Cpp Concat1Cpp Concat2Cpp Concat3Cpp Regexp1Cpp Regexp2Cpp Regexp3Cpp
 
