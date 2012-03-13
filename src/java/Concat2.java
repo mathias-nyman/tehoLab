@@ -24,7 +24,5 @@ class Concat2 {
             strBuilder.append(lines.get(i));
 
         String concatenated = strBuilder.toString();
-
-        //TODO: add cpu time measurement
     }
 }

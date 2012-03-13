@@ -1,6 +1,5 @@
 import sys
 import re
-import os
 
 def main():
     f = open(sys.argv[1])
@@ -27,5 +26,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-    print os.times(), 'TODO: which of these do we measure?'
 

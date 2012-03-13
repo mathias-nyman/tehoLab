@@ -73,7 +73,5 @@ class MatrixMult2 {
             matrixMultFloat(floatResult, floatMatrix);
         else
             matrixMultInt(intResult, intMatrix);
-
-        //TODO: add cpu time measurement
     }
 }

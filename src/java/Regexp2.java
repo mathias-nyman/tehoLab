@@ -35,7 +35,5 @@ class Regexp2 {
                 amountFound++;
             }
         }
-
-        //TODO: add cpu time measurement
     }
 }
