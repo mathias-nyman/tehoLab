@@ -17,7 +17,9 @@ MatrixMult1Python:
 	$(TIME) python $(D)/MatrixMult1.py $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult2Python:
+	$(TIME) python $(D)/MatrixMult2.py $(MATRIX_MULT_DATA) 100 --dry-run
 	$(TIME) python $(D)/MatrixMult2.py $(MATRIX_MULT_DATA) 100
+	$(TIME) python $(D)/MatrixMult2.py $(MATRIX_MULT_DATA) 100 --float --dry-run
 	$(TIME) python $(D)/MatrixMult2.py $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult3Python:
@@ -29,6 +31,7 @@ Concat1Python:
 	$(TIME) python $(D)/Concat1.py $(CONCAT_DATA)
 
 Concat2Python:
+	$(TIME) python $(D)/Concat2.py $(CONCAT_DATA) --dry-run
 	$(TIME) python $(D)/Concat2.py $(CONCAT_DATA)
 
 Concat3Python:
@@ -40,7 +43,9 @@ Regexp1Python:
 	$(TIME) python $(D)/Regexp1.py $(REGEXP_DATA) --with-or-operator
 
 Regexp2Python:
+	$(TIME) python $(D)/Regexp2.py $(REGEXP_DATA) --dry-run
 	$(TIME) python $(D)/Regexp2.py $(REGEXP_DATA)
+	$(TIME) python $(D)/Regexp2.py $(REGEXP_DATA) --with-or-operator --dry-run
 	$(TIME) python $(D)/Regexp2.py $(REGEXP_DATA) --with-or-operator
 
 Regexp3Python:

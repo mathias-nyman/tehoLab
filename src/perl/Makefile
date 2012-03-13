@@ -17,7 +17,9 @@ MatrixMult1Perl:
 	$(TIME) perl $(D)/MatrixMult1.pl $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult2Perl:
+	$(TIME) perl $(D)/MatrixMult2.pl $(MATRIX_MULT_DATA) 100 --dry-run
 	$(TIME) perl $(D)/MatrixMult2.pl $(MATRIX_MULT_DATA) 100
+	$(TIME) perl $(D)/MatrixMult2.pl $(MATRIX_MULT_DATA) 100 --float --dry-run
 	$(TIME) perl $(D)/MatrixMult2.pl $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult3Perl:
@@ -29,6 +31,7 @@ Concat1Perl:
 	$(TIME) perl $(D)/Concat1.pl $(CONCAT_DATA)
 
 Concat2Perl:
+	$(TIME) perl $(D)/Concat2.pl $(CONCAT_DATA) --dry-run
 	$(TIME) perl $(D)/Concat2.pl $(CONCAT_DATA)
 
 Concat3Perl:
@@ -40,7 +43,9 @@ Regexp1Perl:
 	$(TIME) perl $(D)/Regexp1.pl $(REGEXP_DATA) --with-or-operator
 
 Regexp2Perl:
+	$(TIME) perl $(D)/Regexp2.pl $(REGEXP_DATA) --dry-run
 	$(TIME) perl $(D)/Regexp2.pl $(REGEXP_DATA)
+	$(TIME) perl $(D)/Regexp2.pl $(REGEXP_DATA) --with-or-operator --dry-run
 	$(TIME) perl $(D)/Regexp2.pl $(REGEXP_DATA) --with-or-operator
 
 Regexp3Perl:
