@@ -36,6 +36,9 @@ def multiply_matrix(In, dim):
 				res += In.get(i,k)*In.get(k,j)
 			Out.set(i,j,res)
 
+
+#program entry:
+
 if len(sys.argv) < 3 or len(sys.argv) > 4:
 	print "Illegal numger of arguments"
 	sys.exit()
