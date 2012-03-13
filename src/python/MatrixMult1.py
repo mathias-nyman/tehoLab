@@ -1,3 +1,9 @@
+#
+# MatrixMult1.py
+#
+# Created by Jukka Aro on 13.3.2012.
+#
+
 import sys
 
 class Matrix:
