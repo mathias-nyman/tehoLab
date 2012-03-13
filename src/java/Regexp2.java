@@ -15,6 +15,13 @@ class Regexp2 {
           br.close();
         } catch (Exception e) { System.out.println(e); }
 
+        if (args.length > 1 && args[1].equals("--dry-run")) {
+            return;
+        }
+        if (args.length > 2 && args[2].equals("--dry-run")) {
+            return;
+        }
+
         Pattern pattern = Pattern.compile("\\d+");
         if (args.length > 1 && args[1].equals("--with-or-operator")) {
             pattern = Pattern.compile("\\d+|\\w+\\d+\\.");

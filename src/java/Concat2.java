@@ -15,6 +15,10 @@ class Concat2 {
           br.close();
         } catch (Exception e) { System.out.println(e); }
 
+        if (args.length > 1 && args[1].equals("--dry-run")) {
+            return;
+        }
+
         StringBuilder strBuilder = new StringBuilder();
         for (int i=0; i < lines.size() ; i++)
             strBuilder.append(lines.get(i));

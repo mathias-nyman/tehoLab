@@ -61,6 +61,14 @@ class MatrixMult2 {
 
         int[][] intResult = new int[dimension][dimension];
         float[][] floatResult = new float[dimension][dimension];
+
+        if (args.length > 2 && args[2].equals("--dry-run")) {
+            return;
+        }
+        if (args.length > 3 && args[3].equals("--dry-run")) {
+            return;
+        }
+
         if (isFloat)
             matrixMultFloat(floatResult, floatMatrix);
         else
