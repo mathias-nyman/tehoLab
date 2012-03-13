@@ -7,7 +7,7 @@ sub main {
     my @lines = <FH>;
     close FH;
     my $dimension = $ARGV[1];
-    my $itemType = ($#ARGV > 1 and $ARGV[2] eq '--float') ? 1:0;
+    my $itemType = ($#ARGV > 2 and $ARGV[2] eq '--float') ? 1:0;
 
     my @matrix = ();
     my $rowNum = 1;
@@ -36,6 +36,13 @@ sub main {
         for my $j (0 .. $dimension -1) {
             push @{$result[$i]}, 0;
         }
+    }
+
+    if ($#ARGV > 2 and $ARGV[2] eq '--dry-run') {
+        return;
+    }
+    if ($#ARGV > 3 and $ARGV[3] eq '--dry-run') {
+        return;
     }
 
     for my $i (0 .. $dimension - 1) {

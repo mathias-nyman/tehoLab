@@ -6,6 +6,9 @@ sub main {
     open FH, $ARGV[0];
     my @lines = <FH>;
     close FH;
+    if ($#ARGV > 1 and $ARGV[1]) {
+        return;
+    }
     my $concatenated = join '', @lines;
 }
 
