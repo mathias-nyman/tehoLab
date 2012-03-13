@@ -1,4 +1,5 @@
 D :=.
+TIME ?= time
 
 MATRIX_MULT_DATA ?= ../../data/matrix_mult/data.txt
 CONCAT_DATA ?= ../../data/concat/data.txt
@@ -12,37 +13,37 @@ REGEXP_DATA ?= ../../data/regexp/data.txt
 allPython: MatrixMult1Python MatrixMult2Python MatrixMult3Python Concat1Python Concat2Python Concat3Python Regexp1Python Regexp2Python Regexp3Python
 
 MatrixMult1Python:
-	python $(D)/MatrixMult1.py $(MATRIX_MULT_DATA) 100
-	python $(D)/MatrixMult1.py $(MATRIX_MULT_DATA) 100 --float
+	$(TIME) python $(D)/MatrixMult1.py $(MATRIX_MULT_DATA) 100
+	$(TIME) python $(D)/MatrixMult1.py $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult2Python:
-	python $(D)/MatrixMult2.py $(MATRIX_MULT_DATA) 100
-	python $(D)/MatrixMult2.py $(MATRIX_MULT_DATA) 100 --float
+	$(TIME) python $(D)/MatrixMult2.py $(MATRIX_MULT_DATA) 100
+	$(TIME) python $(D)/MatrixMult2.py $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult3Python:
-	python $(D)/MatrixMult3.py $(MATRIX_MULT_DATA) 100
-	python $(D)/MatrixMult3.py $(MATRIX_MULT_DATA) 100 --float
+	$(TIME) python $(D)/MatrixMult3.py $(MATRIX_MULT_DATA) 100
+	$(TIME) python $(D)/MatrixMult3.py $(MATRIX_MULT_DATA) 100 --float
 
 
 Concat1Python:
-	python $(D)/Concat1.py $(CONCAT_DATA)
+	$(TIME) python $(D)/Concat1.py $(CONCAT_DATA)
 
 Concat2Python:
-	python $(D)/Concat2.py $(CONCAT_DATA)
+	$(TIME) python $(D)/Concat2.py $(CONCAT_DATA)
 
 Concat3Python:
-	python $(D)/Concat3.py $(CONCAT_DATA)
+	$(TIME) python $(D)/Concat3.py $(CONCAT_DATA)
 
 
 Regexp1Python:
-	python $(D)/Regexp1.py $(REGEXP_DATA)
-	python $(D)/Regexp1.py $(REGEXP_DATA) --with-or-operator
+	$(TIME) python $(D)/Regexp1.py $(REGEXP_DATA)
+	$(TIME) python $(D)/Regexp1.py $(REGEXP_DATA) --with-or-operator
 
 Regexp2Python:
-	python $(D)/Regexp2.py $(REGEXP_DATA)
-	python $(D)/Regexp2.py $(REGEXP_DATA) --with-or-operator
+	$(TIME) python $(D)/Regexp2.py $(REGEXP_DATA)
+	$(TIME) python $(D)/Regexp2.py $(REGEXP_DATA) --with-or-operator
 
 Regexp3Python:
-	python $(D)/Regexp3.py $(REGEXP_DATA)
-	python $(D)/Regexp3.py $(REGEXP_DATA) --with-or-operator
+	$(TIME) python $(D)/Regexp3.py $(REGEXP_DATA)
+	$(TIME) python $(D)/Regexp3.py $(REGEXP_DATA) --with-or-operator
 

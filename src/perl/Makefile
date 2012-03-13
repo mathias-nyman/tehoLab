@@ -1,4 +1,5 @@
 D :=.
+TIME ?= time
 
 MATRIX_MULT_DATA ?= ../../data/matrix_mult/data.txt
 CONCAT_DATA ?= ../../data/concat/data.txt
@@ -12,37 +13,37 @@ REGEXP_DATA ?= ../../data/regexp/data.txt
 allPerl: MatrixMult1Perl MatrixMult2Perl MatrixMult3Perl Concat1Perl Concat2Perl Concat3Perl Regexp1Perl Regexp2Perl Regexp3Perl
 
 MatrixMult1Perl:
-	perl $(D)/MatrixMult1.pl $(MATRIX_MULT_DATA) 100
-	perl $(D)/MatrixMult1.pl $(MATRIX_MULT_DATA) 100 --float
+	$(TIME) perl $(D)/MatrixMult1.pl $(MATRIX_MULT_DATA) 100
+	$(TIME) perl $(D)/MatrixMult1.pl $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult2Perl:
-	perl $(D)/MatrixMult2.pl $(MATRIX_MULT_DATA) 100
-	perl $(D)/MatrixMult2.pl $(MATRIX_MULT_DATA) 100 --float
+	$(TIME) perl $(D)/MatrixMult2.pl $(MATRIX_MULT_DATA) 100
+	$(TIME) perl $(D)/MatrixMult2.pl $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult3Perl:
-	perl $(D)/MatrixMult3.pl $(MATRIX_MULT_DATA) 100
-	perl $(D)/MatrixMult3.pl $(MATRIX_MULT_DATA) 100 --float
+	$(TIME) perl $(D)/MatrixMult3.pl $(MATRIX_MULT_DATA) 100
+	$(TIME) perl $(D)/MatrixMult3.pl $(MATRIX_MULT_DATA) 100 --float
 
 
 Concat1Perl:
-	perl $(D)/Concat1.pl $(CONCAT_DATA)
+	$(TIME) perl $(D)/Concat1.pl $(CONCAT_DATA)
 
 Concat2Perl:
-	perl $(D)/Concat2.pl $(CONCAT_DATA)
+	$(TIME) perl $(D)/Concat2.pl $(CONCAT_DATA)
 
 Concat3Perl:
-	perl $(D)/Concat3.pl $(CONCAT_DATA)
+	$(TIME) perl $(D)/Concat3.pl $(CONCAT_DATA)
 
 
 Regexp1Perl:
-	perl $(D)/Regexp1.pl $(REGEXP_DATA)
-	perl $(D)/Regexp1.pl $(REGEXP_DATA) --with-or-operator
+	$(TIME) perl $(D)/Regexp1.pl $(REGEXP_DATA)
+	$(TIME) perl $(D)/Regexp1.pl $(REGEXP_DATA) --with-or-operator
 
 Regexp2Perl:
-	perl $(D)/Regexp2.pl $(REGEXP_DATA)
-	perl $(D)/Regexp2.pl $(REGEXP_DATA) --with-or-operator
+	$(TIME) perl $(D)/Regexp2.pl $(REGEXP_DATA)
+	$(TIME) perl $(D)/Regexp2.pl $(REGEXP_DATA) --with-or-operator
 
 Regexp3Perl:
-	perl $(D)/Regexp3.pl $(REGEXP_DATA)
-	perl $(D)/Regexp3.pl $(REGEXP_DATA) --with-or-operator
+	$(TIME) perl $(D)/Regexp3.pl $(REGEXP_DATA)
+	$(TIME) perl $(D)/Regexp3.pl $(REGEXP_DATA) --with-or-operator
 

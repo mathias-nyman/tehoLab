@@ -1,4 +1,5 @@
 D :=.
+TIME ?= time
 
 MATRIX_MULT_DATA ?= ../../data/matrix_mult/data.txt
 CONCAT_DATA ?= ../../data/concat/data.txt
@@ -13,45 +14,45 @@ allC: MatrixMult1C MatrixMult2C MatrixMult3C Concat1C Concat2C Concat3C Regexp1C
 
 MatrixMult1C:
 	@gcc -o $(D)/$@ $(D)/MatrixMult1.c
-	$(D)/$@ $(MATRIX_MULT_DATA) 100
-	$(D)/$@ $(MATRIX_MULT_DATA) 100 --float
+	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100
+	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult2C:
 	@gcc -o $(D)/$@ $(D)/MatrixMult2.c
-	$(D)/$@ $(MATRIX_MULT_DATA) 100
-	$(D)/$@ $(MATRIX_MULT_DATA) 100 --float
+	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100
+	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult3C:
 	@gcc -o $(D)/$@ $(D)/MatrixMult3.c
-	$(D)/$@ $(MATRIX_MULT_DATA) 100
-	$(D)/$@ $(MATRIX_MULT_DATA) 100 --float
+	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100
+	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100 --float
 
 
 Concat1C:
 	@gcc -o $(D)/$@ $(D)/Concat1.c
-	$(D)/$@ $(CONCAT_DATA)
+	$(TIME) $(D)/$@ $(CONCAT_DATA)
 
 Concat2C:
 	@gcc -o $(D)/$@ $(D)/Concat2.c
-	$(D)/$@ $(CONCAT_DATA)
+	$(TIME) $(D)/$@ $(CONCAT_DATA)
 
 Concat3C:
 	@gcc -o $(D)/$@ $(D)/Concat3.c
-	$(D)/$@ $(CONCAT_DATA)
+	$(TIME) $(D)/$@ $(CONCAT_DATA)
 
 
 Regexp1C:
 	@gcc -o $(D)/$@ $(D)/Regexp1.c
-	$(D)/$@ $(REGEXP_DATA)
-	$(D)/$@ $(REGEXP_DATA) --with-or-operator
+	$(TIME) $(D)/$@ $(REGEXP_DATA)
+	$(TIME) $(D)/$@ $(REGEXP_DATA) --with-or-operator
 
 Regexp2C:
 	@gcc -o $(D)/$@ $(D)/Regexp2.c
-	$(D)/$@ $(REGEXP_DATA)
-	$(D)/$@ $(REGEXP_DATA) --with-or-operator
+	$(TIME) $(D)/$@ $(REGEXP_DATA)
+	$(TIME) $(D)/$@ $(REGEXP_DATA) --with-or-operator
 
 Regexp3C:
 	@gcc -o $(D)/$@ $(D)/Regexp3.c
-	$(D)/$@ $(REGEXP_DATA)
-	$(D)/$@ $(REGEXP_DATA) --with-or-operator
+	$(TIME) $(D)/$@ $(REGEXP_DATA)
+	$(TIME) $(D)/$@ $(REGEXP_DATA) --with-or-operator
 

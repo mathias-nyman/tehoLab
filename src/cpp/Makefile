@@ -1,4 +1,5 @@
 D :=.
+TIME ?= time
 
 MATRIX_MULT_DATA ?= ../../data/matrix_mult/data.txt
 CONCAT_DATA ?= ../../data/concat/data.txt
@@ -15,45 +16,45 @@ allCpp: MatrixMult1Cpp MatrixMult2Cpp MatrixMult3Cpp Concat1Cpp Concat2Cpp Conca
 
 MatrixMult1Cpp:
 	@$(CXX) -o $(D)/$@ $(D)/MatrixMult1.cpp
-	$(D)/$@ $(MATRIX_MULT_DATA) 100
-	$(D)/$@ $(MATRIX_MULT_DATA) 100 --float
+	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100
+	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult2Cpp:
 	@$(CXX) -o $(D)/$@ $(D)/MatrixMult2.cpp
-	$(D)/$@ $(MATRIX_MULT_DATA) 100
-	$(D)/$@ $(MATRIX_MULT_DATA) 100 --float
+	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100
+	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult3Cpp:
 	@$(CXX) -o $(D)/$@ $(D)/MatrixMult3.cpp
-	$(D)/$@ $(MATRIX_MULT_DATA) 100
-	$(D)/$@ $(MATRIX_MULT_DATA) 100 --float
+	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100
+	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100 --float
 
 
 Concat1Cpp:
 	@$(CXX) -o $(D)/$@ $(D)/Concat1.cpp
-	$(D)/$@ $(CONCAT_DATA)
+	$(TIME) $(D)/$@ $(CONCAT_DATA)
 
 Concat2Cpp:
 	@$(CXX) -o $(D)/$@ $(D)/Concat2.cpp
-	$(D)/$@ $(CONCAT_DATA)
+	$(TIME) $(D)/$@ $(CONCAT_DATA)
 
 Concat3Cpp:
 	@$(CXX) -o $(D)/$@ $(D)/Concat3.cpp
-	$(D)/$@ $(CONCAT_DATA)
+	$(TIME) $(D)/$@ $(CONCAT_DATA)
 
 
 Regexp1Cpp:
 	@$(CXX) -o $(D)/$@ $(D)/Regexp1.cpp
-	$(D)/$@ $(REGEXP_DATA)
-	$(D)/$@ $(REGEXP_DATA) --with-or-operator
+	$(TIME) $(D)/$@ $(REGEXP_DATA)
+	$(TIME) $(D)/$@ $(REGEXP_DATA) --with-or-operator
 
 Regexp2Cpp:
 	@$(CXX) -o $(D)/$@ $(D)/Regexp2.cpp
-	$(D)/$@ $(REGEXP_DATA)
-	$(D)/$@ $(REGEXP_DATA) --with-or-operator
+	$(TIME) $(D)/$@ $(REGEXP_DATA)
+	$(TIME) $(D)/$@ $(REGEXP_DATA) --with-or-operator
 
 Regexp3Cpp:
 	@$(CXX) -o $(D)/$@ $(D)/Regexp3.cpp
-	$(D)/$@ $(REGEXP_DATA)
-	$(D)/$@ $(REGEXP_DATA) --with-or-operator
+	$(TIME) $(D)/$@ $(REGEXP_DATA)
+	$(TIME) $(D)/$@ $(REGEXP_DATA) --with-or-operator
 
