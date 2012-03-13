@@ -20,6 +20,11 @@ def main():
                 break
             matrix[idx] = [float(i) for i in line.split()][:dimension]
 
+    if len(sys.argv) > 3 and sys.argv[3] == '--dry-run':
+        return
+    if len(sys.argv) > 4 and sys.argv[4] == '--dry-run':
+        return
+
     result = [[0]*dimension]*dimension
     for i in range(dimension):
         for j in range(dimension):

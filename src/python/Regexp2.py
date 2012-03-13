@@ -7,6 +7,11 @@ def main():
     lines = f.readlines()
     f.close()
 
+    if len(sys.argv) > 2 and sys.argv[2] == '--dry-run':
+        return
+    if len(sys.argv) > 3 and sys.argv[3] == '--dry-run':
+        return
+
     #Pre-compile regexp before comparing to it
     #TODO: this should be excluded from "empty"-run
     if len(sys.argv) > 2 and sys.argv[2] == '--with-or-operator':
