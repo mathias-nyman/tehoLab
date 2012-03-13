@@ -12,6 +12,9 @@ all: MatrixMult Concat Regexp
 data:
 	@wget http://dl.dropbox.com/u/31514170/data.txt -O $(MATRIX_MULT_DATA)
 
+boost:
+	@cd tools; ./installBoost.sh
+
 MatrixMult: MatrixMultC MatrixMultCpp MatrixMultJava MatrixMultPython MatrixMultPerl
 Concat: ConcatC ConcatCpp ConcatJava ConcatPython ConcatPerl
 Regexp: RegexpC RegexpCpp RegexpJava RegexpPython RegexpPerl
