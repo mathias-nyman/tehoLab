@@ -28,6 +28,7 @@ class Concat1 {
 			while((currentLine = lineReader.readLine()) != null) {
 				result.append(currentLine.trim());
 			}
+			lineReader.close();
 		} catch(IOException e) {
 			System.err.println("Corrupted input file");
 			System.exit(1);
