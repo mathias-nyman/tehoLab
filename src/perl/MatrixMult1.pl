@@ -9,19 +9,23 @@ sub read_input{
 	@in_matrix = 0 x ($dim*$dim);
 	@lines = <FILE>;
 
-	for($i = 0; $i < $dim; $i++) {
-		@tokens = split(' ', $lines[$i]);
-		for($j = 0; $j < $dim; $j++) {
-			if($_[1] == 1){
-				$tmp = $tokens[$j];
+	if($_[1] == 1){
+		for($i = 0; $i < $dim; $i++) {
+			@tokens = split(' ', $lines[$i]);
+			for($j = 0; $j < $dim; $j++) {
+				$in_matrix[$dim*$i+$j] = $tokens[$j];
 			}
-			else{
-				$tmp = int($tokens[$j]);
-			}
-			$in_matrix[$dim*$i+$j] = $tmp;
 		}
 	}
-
+	else{
+		for($i = 0; $i < $dim; $i++) {
+			@tokens = split(' ', $lines[$i]);
+			for($j = 0; $j < $dim; $j++) {
+				$in_matrix[$dim*$i+$j] = int($tokens[$j]);
+			}
+		}
+	}
+	
 	close(FILE);
 	@in_matrix;
 }
