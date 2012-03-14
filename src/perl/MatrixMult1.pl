@@ -53,4 +53,4 @@ if($#ARGV == 2 && $ARGV[2] == "--float"){
 }
 $dim = $ARGV[1];
 
-&multiply_matrix(&read_input($ARGV[0], $is_float));
+multiply_matrix(read_input($ARGV[0], $is_float));

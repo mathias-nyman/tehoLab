@@ -20,4 +20,4 @@ if($#ARGV != 0){
 	die "Illegal number of arguments";
 }
 
-&concatenate($ARGV[0]);
+concatenate($ARGV[0]);
