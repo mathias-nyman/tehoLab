@@ -19,7 +19,6 @@ sub regexp_match{
 		}
 	}
 	close(FILE);
-	print $count;
 }
 
 #program entry:
