@@ -118,7 +118,7 @@ class MatrixMult3
 			}
 		}
 		
-		public int getNumber() throws IOException
+		private String getNumber() throws IOException
 		{
 			if(isEmpty)
 			{
@@ -148,7 +148,17 @@ class MatrixMult3
 				}
 			}
 			
-			return Integer.parseInt(stringBuilder.toString().split("\\.")[0]);
+			return stringBuilder.toString();
+		}
+		
+		public int getInt() throws NumberFormatException, IOException
+		{
+			return Integer.parseInt(getNumber().split("\\.")[0]);
+		}
+		
+		public float getFloat() throws NumberFormatException, IOException
+		{
+			return Float.parseFloat(getNumber());
 		}
 		
 		public void close() throws IOException
@@ -157,16 +167,16 @@ class MatrixMult3
 		}
 	}
 	
-	public static class Matrix
+	public static class IntegerMatrix
 	{
 		private final int[][] data;
 		
-		public Matrix(int dimension)
+		public IntegerMatrix(int dimension)
 		{
 			data = new int[dimension][dimension];
 		}
 		
-		public Matrix(int dimension, NumberSource numberSource) throws IOException
+		public IntegerMatrix(int dimension, NumberSource numberSource) throws IOException
 		{
 			this(dimension);
 			
@@ -174,7 +184,7 @@ class MatrixMult3
 			{
 				for(int cell_index = 0; cell_index < getDimension(); cell_index++)
 				{
-					data[row_index][cell_index] = numberSource.getNumber();
+					data[row_index][cell_index] = numberSource.getInt();
 				}
 			}
 		}
@@ -184,14 +194,65 @@ class MatrixMult3
 			return data.length;
 		}
 		
-		public static Matrix multiply(Matrix a, Matrix b)
+		public static IntegerMatrix multiply(IntegerMatrix a, IntegerMatrix b)
 		{
 			if(a.getDimension() != b.getDimension())
 			{
 				throw new IllegalArgumentException("Matrices must be of the same dimension");
 			}
 			
-			Matrix ret = new Matrix(a.getDimension());
+			IntegerMatrix ret = new IntegerMatrix(a.getDimension());
+			
+			for(int row_index = 0; row_index < ret.getDimension(); row_index++)
+			{
+				for(int cell_index = 0; cell_index < ret.getDimension(); cell_index++)
+				{
+					for(int k = 0; k < ret.getDimension(); k++)
+					{
+						ret.data[row_index][cell_index] += a.data[row_index][k] * b.data[k][cell_index];
+					}
+				}
+			}
+			
+			return ret;
+		}
+	}
+	
+	public static class FloatMatrix
+	{
+		private final float[][] data;
+		
+		public FloatMatrix(int dimension)
+		{
+			data = new float[dimension][dimension];
+		}
+		
+		public FloatMatrix(int dimension, NumberSource numberSource) throws IOException
+		{
+			this(dimension);
+			
+			for(int row_index = 0; row_index < getDimension(); row_index++)
+			{
+				for(int cell_index = 0; cell_index < getDimension(); cell_index++)
+				{
+					data[row_index][cell_index] = numberSource.getFloat();
+				}
+			}
+		}
+		
+		public int getDimension()
+		{
+			return data.length;
+		}
+		
+		public static FloatMatrix multiply(FloatMatrix a, FloatMatrix b)
+		{
+			if(a.getDimension() != b.getDimension())
+			{
+				throw new IllegalArgumentException("Matrices must be of the same dimension");
+			}
+			
+			FloatMatrix ret = new FloatMatrix(a.getDimension());
 			
 			for(int row_index = 0; row_index < ret.getDimension(); row_index++)
 			{
@@ -214,13 +275,21 @@ class MatrixMult3
 		Configuration configuration = new Configuration(args);
 		
 		NumberSource numberSource = null;
-		Matrix a;
+		FloatMatrix floatMatrix = null;
+		IntegerMatrix integerMatrix = null;
 		try
 		{
 			// get number source
 			numberSource = new NumberSource(configuration.file);
 			
-			a = new Matrix(configuration.dimension, numberSource);
+			if(configuration.asFloat)
+			{
+				floatMatrix = new FloatMatrix(configuration.dimension, numberSource);
+			}
+			else
+			{
+				integerMatrix = new IntegerMatrix(configuration.dimension, numberSource);
+			}
 		}
 		finally
 		{
@@ -233,8 +302,16 @@ class MatrixMult3
 		
 		if(!configuration.dryRun)
 		{
-			@SuppressWarnings("unused")
-			Matrix c = Matrix.multiply(a, a);
+			if(configuration.asFloat)
+			{
+				@SuppressWarnings("unused")
+				FloatMatrix floatMatrixResult = FloatMatrix.multiply(floatMatrix, floatMatrix);
+			}
+			else
+			{
+				@SuppressWarnings("unused")
+				IntegerMatrix integerMatrixResult = IntegerMatrix.multiply(integerMatrix, integerMatrix);
+			}
 		}
 	}
 }
