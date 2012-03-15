@@ -97,6 +97,26 @@ class MatrixMult3
 			seekToNonWhite();
 		}
 		
+		public void skipRestOfLine() throws IOException
+		{
+			int value;
+			while(true)
+			{
+				value = bufferedReader.read();
+				
+				if(value < 0)
+				{
+					isEmpty = true;
+					return;
+				}
+				else if(((char)value) == '\n')
+				{
+					seekToNonWhite();
+					return;
+				}
+			}
+		}
+		
 		private void seekToNonWhite() throws IOException
 		{
 			int value;
@@ -110,7 +130,7 @@ class MatrixMult3
 					isEmpty = true;
 					return;
 				}
-				else if(!Character.isWhitespace((char)value))
+				else if(!Character.isWhitespace((char)value) || ((char)value) == '\n')
 				{
 					bufferedReader.reset();
 					return;
@@ -132,7 +152,11 @@ class MatrixMult3
 				bufferedReader.mark(1);
 				value = bufferedReader.read();
 				
-				if(value < 0)
+				if(((char)value) == '\n')
+				{
+					throw new IllegalArgumentException("Unexpected line break.");
+				}
+				else if(value < 0)
 				{
 					isEmpty = true;
 					break;
@@ -186,6 +210,7 @@ class MatrixMult3
 				{
 					data[row_index][cell_index] = numberSource.getInt();
 				}
+				numberSource.skipRestOfLine();
 			}
 		}
 		
@@ -237,6 +262,7 @@ class MatrixMult3
 				{
 					data[row_index][cell_index] = numberSource.getFloat();
 				}
+				numberSource.skipRestOfLine();
 			}
 		}
 		
