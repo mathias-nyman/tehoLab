@@ -77,6 +77,9 @@ char** splitToLines(char *buffer, int* lineCount)
 		(*lineCount)++;
 	}
 	
+	// revert the last increment where no line was found anymore
+	(*lineCount)--;
+	
 	return lines;
 }
 

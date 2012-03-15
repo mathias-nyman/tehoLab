@@ -63,14 +63,23 @@ char** splitToLines(char *buffer, int* lineCount)
 		return NULL;
 	}
 	
-	*lineCount = 0;
-	char* lastTokenFound = strtok(buffer, "\n");
+	lines[0] = buffer;
+	*lineCount = 1;
+	char* lastTokenFound = strpbrk(buffer, "\n");
 	while(lastTokenFound != NULL && (*lineCount) < allocatedLineCount)
 	{
-		lines[(*lineCount)++] = lastTokenFound;
+		lines[*lineCount] = lastTokenFound + 1;
 		
-		lastTokenFound = strtok(NULL, "\n");
+		// replace last lines last character (\n) with \0
+		*(lines[*lineCount] - 1) = '\0';
+		
+		lastTokenFound = strpbrk(lines[*lineCount], "\n");
+		
+		(*lineCount)++;
 	}
+	
+	// revert the last increment where no line was found anymore
+	(*lineCount)--;
 	
 	return lines;
 }
@@ -168,7 +177,7 @@ int main(int argc, char **argv)
 		}
 		
 		// debug print
-		//printf("%s\n", resultBuffer);
+		//printf("%s", resultBuffer);
 		free(resultBuffer);
 	}
 	
