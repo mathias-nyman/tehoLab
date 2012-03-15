@@ -26,17 +26,10 @@ void concatenate(const char *input_file)
 	char result[MAX_LINE_LENGTH];
 	char tmp[MAX_WORD_LENGTH];
 
-	clock_t total = 0;
-
 	while(EOF != fscanf(f, "%s", tmp))
 	{
-		clock_t start = clock();
 		strcat(result, tmp);
-		clock_t end = clock();
-		total += end-start;
 	}
-
-	printf("%lf\n", ((double)total)/CLOCKS_PER_SEC);
 
 	fclose(f);
 }

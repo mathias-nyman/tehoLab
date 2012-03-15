@@ -13,21 +13,14 @@
 void concatenate(const char *input_file)
 {
 	std::ifstream ifs(input_file, std::ifstream::in);
-	
-	clock_t total = 0;
 	std::string result;
 	
 	while(ifs.good())
 	{
 		std::string tmp;
 		ifs >> tmp;
-		clock_t start = clock();
 		result.append(tmp);
-		clock_t end = clock();
-		total += end-start;
 	}
-	
-	std::cout << ((double)total)/CLOCKS_PER_SEC << std::endl;
 	
 	ifs.close();
 }

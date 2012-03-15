@@ -84,8 +84,6 @@ void multiply_int_matrix(const char *input_file, int dim)
 	
 	int i, j, k;
 
-	clock_t start = clock();
-	
 	for(i = 0; i < dim; i++)
 	{
 		for(j = 0; j < dim; j++)
@@ -96,10 +94,6 @@ void multiply_int_matrix(const char *input_file, int dim)
 			INDEX(out_matrix, dim, i, j) = res;
 		}
 	}
-
-	clock_t end = clock();
-	
-	printf("%d %lf\n", dim, (double)(end-start)/CLOCKS_PER_SEC);
 
 	free(in_matrix);
 	free(out_matrix);
@@ -127,8 +121,6 @@ void multiply_float_matrix(const char *input_file, int dim)
 	
 	int i, j, k;
 	
-	clock_t start = clock();
-	
 	for(i = 0; i < dim; i++)
 	{
 		for(j = 0; j < dim; j++)
@@ -139,10 +131,6 @@ void multiply_float_matrix(const char *input_file, int dim)
 			INDEX(out_matrix, dim, i, j) = res;
 		}
 	}
-	
-	clock_t end = clock();
-	
-	printf("%d %lf\n", dim, (double)(end-start)/CLOCKS_PER_SEC);
 
 	free(in_matrix);
 	free(out_matrix);

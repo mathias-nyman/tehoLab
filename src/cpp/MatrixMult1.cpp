@@ -60,8 +60,6 @@ void multiply_matrix(const char *input_file, int dim)
 		exit(1);
 	}
 	
-	clock_t start = clock();
-	
 	for(int i = 0; i < dim; i++)
 	{
 		for(int j = 0; j < dim; j++)
@@ -72,9 +70,6 @@ void multiply_matrix(const char *input_file, int dim)
 			INDEX(*out_matrix, dim, i, j) = res;
 		}
 	}
-	
-	clock_t end = clock();
-	std::cout << dim << " " << (double)(end-start)/CLOCKS_PER_SEC << std::endl;
 	
 	delete in_matrix;
 	delete out_matrix;
