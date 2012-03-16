@@ -6,9 +6,9 @@
  *
  */
 #include <cstdlib>
-#include <cstring>
-#include <iostream>
 #include <fstream>
+#include <iostream>
+#include <string>
 #include <vector>
 
 #define INDEX(vector, dim, row, col) ((vector)[(dim)*(row)+(col)])
@@ -28,10 +28,10 @@ void read_input_file(const char *input_file, int dim, std::vector<T> *in_matrix)
 			ifs >> tmp;
 			INDEX(*in_matrix, dim, i, j) = (T)tmp;
 		}
-		for(; j < FLOATS_PER_ROW; j++)
+		if(j < FLOATS_PER_ROW)
 		{
-			float foo;
-			ifs >> foo;
+			std::string foo;
+			getline(ifs, foo);
 		}
 	}
 	

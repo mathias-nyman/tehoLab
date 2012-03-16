@@ -33,8 +33,11 @@ void read_input_file_int(const char *input_file, int dim, int *in_matrix)
 			{
 				INDEX(in_matrix, dim, i, j) = (int)scan_float(f);
 			}
-			for(; j < FLOATS_PER_ROW; j++)
-				scan_float(f);
+			if(j < FLOATS_PER_ROW)
+			{
+				char foo[10*FLOATS_PER_ROW];
+				fgets(foo, 10*FLOATS_PER_ROW, f);
+			}
 		}
 		fclose(f);
 	}
@@ -54,8 +57,11 @@ void read_input_file_float(const char *input_file, int dim, float *in_matrix)
 			{
 				INDEX(in_matrix, dim, i, j) = scan_float(f);
 			}
-			for(; j < FLOATS_PER_ROW; j++)
-				scan_float(f);
+			if(j < FLOATS_PER_ROW)
+			{
+				char foo[10*FLOATS_PER_ROW];
+				fgets(foo, 10*FLOATS_PER_ROW, f);
+			}
 		}
 		fclose(f);
 	}
