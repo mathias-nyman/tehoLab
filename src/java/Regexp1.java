@@ -37,7 +37,6 @@ class Regexp1 {
 			System.err.println("Corrupted input file");
 			System.exit(1);
 		}
-		System.out.println(count);
 	}
 	
     public static void main(String[] args) {
