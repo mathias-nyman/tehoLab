@@ -26,25 +26,18 @@ typedef enum
 	FINAL
 } State;
 
-typedef enum
+typedef struct R
 {
-	SINGLE,
-	OR_OPERATOR
-} Type;
-
-typedef struct
-{
-	Type type;
 	State state;
+	void (*transition)(struct R *regexp, const char c);
+	Boolean (*is_final)(struct R *regexp, Boolean is_last);
+	struct R *next;
 } Regexp;
 
-void transition(Regexp *regexp, const char c)
+void short_transition(Regexp *regexp, const char c)
 {
-	switch(regexp->type)
+	switch(regexp->state)
 	{
-	case SINGLE:
-		switch(regexp->state)
-		{
 		case INITIAL:
 			if(isdigit(c))
 				regexp->state = DIGIT;
@@ -55,71 +48,68 @@ void transition(Regexp *regexp, const char c)
 			break;
 		default:
 			break;
-		}
-		break;
-	case OR_OPERATOR:
-		switch(regexp->state)
-		{
-			case INITIAL:
-				if(isalnum(c))
-					regexp->state = ALNUM;
-				break;
-			case ALNUM:
-				if(isdigit(c))
-					regexp->state = DIGIT;
-				else if(!isalnum(c))
-					regexp->state = INITIAL;
-				break;
-			case DIGIT:
-				if(c == '.')
-					regexp->state = FINAL;
-				else if(!isdigit(c))
-					regexp->state = INITIAL;
-				break;
-			default:
-				break;
-		}
-		break;
-	default:
-		break;
 	}
+}
+
+void longer_transition(Regexp *regexp, const char c)
+{
+	switch(regexp->state)
+	{
+		case INITIAL:
+			if(isalnum(c))
+				regexp->state = ALNUM;
+			break;
+		case ALNUM:
+			if(isdigit(c))
+				regexp->state = DIGIT;
+			else if(!isalnum(c))
+				regexp->state = INITIAL;
+			break;
+		case DIGIT:
+			if(c == '.')
+				regexp->state = FINAL;
+			else if(!isdigit(c))
+				regexp->state = INITIAL;
+			break;
+		default:
+			break;
+	}
+}
+
+Boolean short_is_final(Regexp *regexp, Boolean is_last)
+{
+	return regexp->state == FINAL || (is_last && regexp->state == DIGIT);
+}
+
+Boolean longer_is_final(Regexp *regexp, Boolean is_last)
+{
+	return regexp->state == FINAL;
 }
 
 Boolean find_regex(const char *line, Boolean or_operator)
 {
 	if(strlen(line) > 0)
 	{
+		Regexp shortR = {INITIAL, short_transition, short_is_final, 0}, longerR;
+		Regexp *head = &shortR;
+		
 		if(or_operator)
 		{
-			Regexp regexp1 = {0}, regexp2 = {0};
-			regexp1.type = SINGLE;
-			regexp2.type = OR_OPERATOR;
-			regexp1.state = regexp2.state = INITIAL;
-			int i = 0;
-			do {
-				transition(&regexp1, line[i]);
-				transition(&regexp2, line[i]);
-				i++;
-				if(regexp1.state == FINAL ||
-				   regexp2.state == FINAL ||
-				   (line[i] == '\0' && regexp1.state == DIGIT))
-					return TRUE;
-			} while(line[i] != '\0');
+			Regexp tmp = {INITIAL, longer_transition, longer_is_final, 0};
+			longerR = tmp;
+			head->next = &longerR;
 		}
-		else
-		{
-			Regexp regexp = {0};
-			regexp.type = SINGLE;
-			regexp.state = INITIAL;
-			int i = 0;
-			do {
-				transition(&regexp, line[i]);
-				i++;
-				if(regexp.state == FINAL ||
-				   (line[i] == '\0' && regexp.state == DIGIT))
+		int i = 0;
+		do {
+			Regexp *curr;
+			for(curr = head; curr != 0; curr = curr->next)
+			{
+				curr->transition(curr, line[i]);
+				if(curr->is_final(curr, line[i+1] == '\0'))
 					return TRUE;
-			} while(line[i] != '\0');
-		}
+			}
+			i++;
+		} while(line[i] != '\0');
 	}
 	return FALSE;
 }
