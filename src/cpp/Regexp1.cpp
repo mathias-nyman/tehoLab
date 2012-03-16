@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 
 typedef enum
 {
@@ -33,94 +34,97 @@ typedef enum
 class Regexp
 {
 public:
-	Regexp(Type t) : type(t), state(INITIAL) {}
+	virtual void transition(char c) = 0;
+	virtual bool isFinal(bool isLast) = 0;
+};
 
-	State getState() { return state; }
+class ShortRegexp : public Regexp
+{
+public:
+	ShortRegexp() : state(INITIAL) {}
 	
 	void transition(const char c)
 	{
-		switch(type)
+		switch(state)
 		{
-			case SINGLE:
-				switch(state)
-			{
-				case INITIAL:
-					if(isdigit(c))
-						state = DIGIT;
-					break;
-				case DIGIT:
-					if(!isdigit(c))
-						state = FINAL;
-					break;
-				default:
-					break;
-			}
+			case INITIAL:
+				if(isdigit(c))
+					state = DIGIT;
 				break;
-			case OR_OPERATOR:
-				switch(state)
-			{
-				case INITIAL:
-					if(isalnum(c))
-						state = ALNUM;
-					break;
-				case ALNUM:
-					if(isdigit(c))
-						state = DIGIT;
-					else if(!isalnum(c))
-						state = INITIAL;
-					break;
-				case DIGIT:
-					if(c == '.')
-						state = FINAL;
-					else if(!isdigit(c))
-						state = INITIAL;
-					break;
-				default:
-					break;
-			}
+			case DIGIT:
+				if(!isdigit(c))
+					state = FINAL;
 				break;
 			default:
 				break;
 		}
 	}
+	
+	bool isFinal(bool isLast) { return state == FINAL || (isLast && state == DIGIT); }
 
 private:
 	Type type;
 	State state;
 };
 
+class LongerRegexp : public Regexp
+{
+public:
+	LongerRegexp() : state(INITIAL) {}
 
+	void transition(const char c)
+	{
+		switch(state)
+		{
+			case INITIAL:
+				if(isalnum(c))
+					state = ALNUM;
+				break;
+			case ALNUM:
+				if(isdigit(c))
+					state = DIGIT;
+				else if(!isalnum(c))
+					state = INITIAL;
+				break;
+			case DIGIT:
+				if(c == '.')
+					state = FINAL;
+				else if(!isdigit(c))
+					state = INITIAL;
+				break;
+			default:
+				break;
+		}
+	}
+	bool isFinal(bool isLast) { return state == FINAL; }
+
+private:
+	Type type;
+	State state;
+};
+	
 bool find_regex(std::string &line, bool or_operator)
 {
 	if(line.length() > 0)
 	{
+		std::vector<Regexp*> regexps;
+		ShortRegexp shortR = ShortRegexp();
+		regexps.push_back(&shortR);
+		LongerRegexp longerR = LongerRegexp();
 		if(or_operator)
 		{
-			Regexp regexp1(SINGLE);
-			Regexp regexp2(OR_OPERATOR);
-			int i = 0;
-			do {
-				regexp1.transition(line[i]);
-				regexp2.transition(line[i]);
-				i++;
-				if(regexp1.getState() == FINAL ||
-				   regexp2.getState() == FINAL ||
-				   (i == line.length() && regexp1.getState() == DIGIT))
-					return true;
-			} while(i < line.length());
+			regexps.push_back(&longerR);
 		}
-		else
-		{
-			Regexp regexp(SINGLE);
-			int i = 0;
-			do {
-				regexp.transition(line[i]);
-				i++;
-				if(regexp.getState() == FINAL ||
-				   (i == line.length() && regexp.getState() == DIGIT))
-					return true;
-			} while(i < line.length());
-		}
+		int i = 0;
+		do {
+			for(std::vector<Regexp*>::iterator it = regexps.begin(); it != regexps.end(); it++)
+			{
+				(*it)->transition(line[i]);
+				if((*it)->isFinal(i+1 == line.length()))
+				   return true;
+			}
+			i++;
+		} while(i < line.length());
 	}
 	return false;
 }
