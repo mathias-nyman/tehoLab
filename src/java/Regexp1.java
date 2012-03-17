@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.regex.*;
 
 class Regexp1 {
-	void regexpMatch(String inputFile, boolean orOperator) {
+	void regexpMatch(String inputFile, boolean orOperator, boolean dryRun) {
 		FileReader fr = null;
 		
 		try {
@@ -20,17 +20,19 @@ class Regexp1 {
 		}
 		
 		BufferedReader lineReader = new BufferedReader(fr);
-		
-		String regex = orOperator ? "\\d+|\\w+\\d+\\." : "\\d+";
-		Pattern pattern = Pattern.compile(regex);
-		
 		String currentLine = null;
-		int count = 0;
 		
 		try {
-			while((currentLine = lineReader.readLine()) != null) {
-				if(pattern.matcher(currentLine).find())
-					count++;
+			if(dryRun)
+				while((currentLine = lineReader.readLine()) != null);
+			else {
+				int count = 0;
+				String regex = orOperator ? "\\d+|\\w+\\d+\\." : "\\d+";
+				Pattern pattern = Pattern.compile(regex);
+				while((currentLine = lineReader.readLine()) != null) {
+					if(pattern.matcher(currentLine).find())
+						count++;
+				}
 			}
 			lineReader.close();
 		} catch(IOException e) {
@@ -40,14 +42,37 @@ class Regexp1 {
 	}
 	
     public static void main(String[] args) {
-		if(args.length > 2) {
-			System.err.println("Illegal number of arguments");
-			System.exit(1);
+		boolean orOperator = false, dryRun = false;
+		
+		switch(args.length){
+			case 1:
+				break;
+			case 2:
+				if(args[1].compareTo("--with-or-operator") == 0)
+					orOperator = true;
+				else if(args[1].compareTo("--dry-run") == 0)
+					dryRun = true;
+				else {
+					System.err.println("Illegal argument: "  + args[1]);
+					System.exit(1);
+				}
+				break;
+			case 3:
+				if(args[1].compareTo("--with-or-operator") == 0 &&
+				   args[2].compareTo("--dry-run") == 0) {
+					orOperator = true;
+					dryRun = true;
+				}
+				else {
+					System.err.println("Illegal arguments: "  + args[1] + " " + args[2]);
+					System.exit(1);
+				}
+				break;
+			default:
+				System.err.println("Illegal number of arguments");
+				System.exit(1);
 		}
 		
-		boolean orOperator = (args.length == 2 && args[1].compareTo("--with-or-operator") == 0) ?
-		true : false;
-		
-		new Regexp1().regexpMatch(args[0], orOperator);
+		new Regexp1().regexpMatch(args[0], orOperator, dryRun);
     }
 }

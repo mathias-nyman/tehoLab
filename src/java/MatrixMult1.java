@@ -117,13 +117,9 @@ public class MatrixMult1 {
 	}
 	
     public static void main(String[] args) {
-		if(args.length < 2 || args.length > 3) {
-			System.err.println("Illegal number of arguments");
-			System.exit(1);
-		}
-		
 		String inputFile = args[0];
 		int dim = 0;
+		boolean isFloat = false, dryRun = false;
 		
 		try {
 			dim = Integer.parseInt(args[1]);
@@ -137,13 +133,47 @@ public class MatrixMult1 {
 			System.exit(1);
 		}
 		
-		if(args.length == 3 && args[2].compareTo("--float") == 0) {
+		switch(args.length) {
+			case 2:
+				break;
+			case 3:
+				if(args[2].compareTo("--float") == 0)
+					isFloat = true;
+				else if(args[2].compareTo("--dry-run") == 0)
+					dryRun = true;
+				else {
+					System.err.println("Illegal argument: " + args[2]);
+					System.exit(1);
+				}
+				break;
+			case 4:
+				if(args[2].compareTo("--float") == 0 && args[3].compareTo("--dry-run") == 0) {
+					isFloat = true;
+					dryRun = true;
+				}
+				else {
+					System.err.println("Illegal arguments: " + args[2] + " " + args[3]);
+					System.exit(1);
+				}
+				break;
+			default:
+				System.err.println("Illegal number of arguments");
+				System.exit(1);
+		}
+		
+		if(isFloat) {
 			MatrixMult1 mm = new MatrixMult1();
-			mm.multiplyFloatMatrix(mm.readFloatMatrix(inputFile, dim), dim);
+			if(dryRun)
+				mm.readFloatMatrix(inputFile, dim);
+			else
+				mm.multiplyFloatMatrix(mm.readFloatMatrix(inputFile, dim), dim);
 		}
 		else {
 			MatrixMult1 mm = new MatrixMult1();
-			mm.multiplyIntMatrix(mm.readIntMatrix(inputFile, dim), dim);
+			if(dryRun)
+				mm.readIntMatrix(inputFile, dim);
+			else
+				mm.multiplyIntMatrix(mm.readIntMatrix(inputFile, dim), dim);
 		}
     }
 }
