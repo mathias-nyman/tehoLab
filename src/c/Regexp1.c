@@ -56,13 +56,13 @@ void longer_transition(Regexp *regexp, const char c)
 	switch(regexp->state)
 	{
 		case INITIAL:
-			if(isalnum(c))
+			if(isalnum(c) || c == '_')
 				regexp->state = ALNUM;
 			break;
 		case ALNUM:
 			if(isdigit(c))
 				regexp->state = DIGIT;
-			else if(!isalnum(c))
+			else if(!isalnum(c) && c != '_')
 				regexp->state = INITIAL;
 			break;
 		case DIGIT:

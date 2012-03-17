@@ -77,13 +77,13 @@ public:
 		switch(state)
 		{
 			case INITIAL:
-				if(isalnum(c))
+				if(isalnum(c) || c == '_')
 					state = ALNUM;
 				break;
 			case ALNUM:
 				if(isdigit(c))
 					state = DIGIT;
-				else if(!isalnum(c))
+				else if(!isalnum(c) && c != '_')
 					state = INITIAL;
 				break;
 			case DIGIT:
