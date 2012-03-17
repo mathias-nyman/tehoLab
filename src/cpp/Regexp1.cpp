@@ -145,25 +145,55 @@ void regex_match(const char *input_file, bool or_operator)
 
 int main(int argc, char **argv)
 {
-	if(argc < 2 || argc > 3)
-	{
-		fprintf(stderr, "Illegal number of arguments\n");
-		exit(1);
-	}
-	
 	bool or_operator = false;
-	
-	if(argc == 3)
-	{
-		if(!strcmp(argv[2], "--with-or-operator"))
-			or_operator = true;
-		else
-		{
-			fprintf(stderr, "Illegal argument: %s\n", argv[2]);
+	bool dry_run = false;
+
+	switch(argc)
+	{		
+		case 2:
+			break;
+		case 3:
+			if(!strcmp(argv[2], "--with-or-operator"))
+			{
+				or_operator = true;
+			}
+			else if(!strcmp(argv[2], "--dry-run"))
+			{
+				dry_run = true;
+			}
+			else
+			{
+				fprintf(stderr, "Illegal argument: %s\n", argv[2]);
+				exit(1);
+			}
+			break;
+		case 4:
+			if(!strcmp(argv[2], "--with-or-operator"))
+			{
+				or_operator = true;
+			}
+			else
+			{
+				fprintf(stderr, "Illegal argument: %s\n", argv[2]);
+				exit(1);
+			}
+
+			if(!strcmp(argv[3], "--dry-run"))
+			{
+				dry_run = true;
+			}
+			else
+			{
+				fprintf(stderr, "Illegal argument: %s\n", argv[2]);
+				exit(1);
+			}
+			break;
+		default:
+			fprintf(stderr, "Illegal number of arguments\n");
 			exit(1);
-		}
-	}
+	}	
+	if(!dry_run)
+		regex_match(argv[1], or_operator);
 	
-	regex_match(argv[1], or_operator);
     return 0;
 }

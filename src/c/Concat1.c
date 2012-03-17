@@ -13,7 +13,7 @@
 #define MAX_LINE_LENGTH 3000
 #define MAX_WORD_LENGTH 80
 
-void concatenate(const char *input_file)
+void concatenate(const char *input_file, int dry_run)
 {
 	FILE *f = fopen(input_file, "r");
 	
@@ -23,26 +23,45 @@ void concatenate(const char *input_file)
 		exit(1);
 	}
 	
-	char result[MAX_LINE_LENGTH];
 	char tmp[MAX_WORD_LENGTH];
 
-	while(EOF != fscanf(f, "%s", tmp))
+	if(dry_run)
+		while(EOF != fscanf(f, "%s", tmp));
+	else
 	{
-		strcat(result, tmp);
+		char result[MAX_LINE_LENGTH];
+		while(EOF != fscanf(f, "%s", tmp))
+		{
+			strcat(result, tmp);
+		}
 	}
-
+	
 	fclose(f);
 }
 
 int main(int argc, char **argv)
 {
-	if(argc != 2)
+	int dry_run = 0;
+	
+	switch(argc)
 	{
-		fprintf(stderr, "Illegal number of arguments\n");
-		exit(1);
+		case 2:
+			break;
+		case 3:
+			if(!strcmp(argv[2], "--dry-run"))
+				dry_run = 1;
+			else
+			{
+				fprintf(stderr, "Illegal argument: %s\n", argv[2]);
+				exit(1);
+			}
+			break;
+		default:
+			fprintf(stderr, "Illegal number of arguments\n");
+			exit(1);
 	}
 	
-	concatenate(argv[1]);
+	concatenate(argv[1], dry_run);
 	
     return 0;
 }

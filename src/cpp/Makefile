@@ -16,7 +16,9 @@ allCpp: MatrixMult1Cpp MatrixMult2Cpp MatrixMult3Cpp Concat1Cpp Concat2Cpp Conca
 
 MatrixMult1Cpp:
 	@$(CXX) -o $(D)/$@ $(D)/MatrixMult1.cpp
+	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100 --dry-run
 	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100
+	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100 --float --dry-run
 	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult2Cpp:
@@ -34,6 +36,7 @@ MatrixMult3Cpp:
 
 Concat1Cpp:
 	@$(CXX) -o $(D)/$@ $(D)/Concat1.cpp
+	$(TIME) $(D)/$@ $(CONCAT_DATA) --dry-run
 	$(TIME) $(D)/$@ $(CONCAT_DATA)
 
 Concat2Cpp:
@@ -48,7 +51,9 @@ Concat3Cpp:
 
 Regexp1Cpp:
 	@$(CXX) -o $(D)/$@ $(D)/Regexp1.cpp
+	$(TIME) $(D)/$@ $(REGEXP_DATA) --dry-run
 	$(TIME) $(D)/$@ $(REGEXP_DATA)
+	$(TIME) $(D)/$@ $(REGEXP_DATA) --with-or-operator --dry-run
 	$(TIME) $(D)/$@ $(REGEXP_DATA) --with-or-operator
 
 Regexp2Cpp:

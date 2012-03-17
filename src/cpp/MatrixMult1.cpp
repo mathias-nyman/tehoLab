@@ -39,7 +39,7 @@ void read_input_file(const char *input_file, int dim, std::vector<T> *in_matrix)
 }
 
 template<typename T>
-void multiply_matrix(const char *input_file, int dim)
+void multiply_matrix(const char *input_file, int dim, bool dry_run)
 {
 	std::vector<T> *in_matrix = new std::vector<T>(dim*dim);
 	
@@ -50,6 +50,8 @@ void multiply_matrix(const char *input_file, int dim)
 	}
 	
 	read_input_file(input_file, dim, in_matrix);
+	
+	if(dry_run) { delete in_matrix; return; }
 	
 	std::vector<T> *out_matrix = new std::vector<T>(dim*dim);
 	
@@ -75,45 +77,64 @@ void multiply_matrix(const char *input_file, int dim)
 	delete out_matrix;
 }
 
-void parse_params(int argc, char **argv, char **input_file, int *dim, int *is_float)
+void parse_params(int argc, char **argv, char **input_file, int &dim, bool &is_float, bool &dry_run)
 {
-	if(argc < 3 || argc > 5)
+	switch(argc)
 	{
-		fprintf(stderr, "Illegal number of arguments\n");
-		exit(1);
+		case 3:
+			break;
+		case 4:
+			if(!strcmp(argv[3], "--float"))
+				is_float = true;
+			else
+			{
+				if(!strcmp(argv[3], "--dry-run"))
+					dry_run = true;
+				else
+				{
+					fprintf(stderr, "Illegal argument: %s\n", argv[3]);
+					exit(1);
+				}
+			}
+			break;
+		case 5:
+			if(!strcmp(argv[3], "--float") && !strcmp(argv[4], "--dry-run"))
+			{
+				is_float = true;
+				dry_run = true;
+			}
+			else
+			{
+				fprintf(stderr, "Illegal arguments: %s %s\n", argv[3], argv[4]);
+				exit(1);
+			}
+			break;
+		default:
+			fprintf(stderr, "Illegal number of arguments\n");
+			exit(1);
 	}
 	
 	*input_file = argv[1];
 	
-	if((*dim = atoi(argv[2])) == 0)
+	if((dim = atoi(argv[2])) == 0)
 	{
 		fprintf(stderr, "Illegal argument: %s\n", argv[2]);
 		exit(1);
-	}
-	
-	if(argc == 4)
-	{
-		if(!strcmp(argv[3], "--float"))
-			*is_float = 1;
-		else
-		{
-			fprintf(stderr, "Illegal argument: %s\n", argv[3]);
-			exit(1);
-		}
 	}
 }
 
 int main(int argc, char **argv)
 {
-	int is_float = 0, dim = 0;
+	bool is_float = false, dry_run = false;
+	int dim = 0;
 	char *input_file;
 	
-	parse_params(argc, argv, &input_file, &dim, &is_float);
+	parse_params(argc, argv, &input_file, dim, is_float, dry_run);
 	
 	if(is_float)
-		multiply_matrix<float>(input_file, dim);
+		multiply_matrix<float>(input_file, dim, dry_run);
 	else
-		multiply_matrix<int>(input_file, dim);
+		multiply_matrix<int>(input_file, dim, dry_run);
 	
     return 0;
 }
