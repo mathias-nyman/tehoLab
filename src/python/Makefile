@@ -13,7 +13,9 @@ REGEXP_DATA ?= ../../data/regexp/data.txt
 allPython: MatrixMult1Python MatrixMult2Python MatrixMult3Python Concat1Python Concat2Python Concat3Python Regexp1Python Regexp2Python Regexp3Python
 
 MatrixMult1Python:
+	$(TIME) python $(D)/MatrixMult1.py $(MATRIX_MULT_DATA) 100 --dry-run
 	$(TIME) python $(D)/MatrixMult1.py $(MATRIX_MULT_DATA) 100
+	$(TIME) python $(D)/MatrixMult1.py $(MATRIX_MULT_DATA) 100 --float --dry-run
 	$(TIME) python $(D)/MatrixMult1.py $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult2Python:
@@ -28,6 +30,7 @@ MatrixMult3Python:
 
 
 Concat1Python:
+	$(TIME) python $(D)/Concat1.py $(CONCAT_DATA) --dry-run
 	$(TIME) python $(D)/Concat1.py $(CONCAT_DATA)
 
 Concat2Python:
@@ -39,7 +42,9 @@ Concat3Python:
 
 
 Regexp1Python:
+	$(TIME) python $(D)/Regexp1.py $(REGEXP_DATA) --dry-run
 	$(TIME) python $(D)/Regexp1.py $(REGEXP_DATA)
+	$(TIME) python $(D)/Regexp1.py $(REGEXP_DATA) --with-or-operator --dry-run
 	$(TIME) python $(D)/Regexp1.py $(REGEXP_DATA) --with-or-operator
 
 Regexp2Python:
