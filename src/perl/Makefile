@@ -13,7 +13,9 @@ REGEXP_DATA ?= ../../data/regexp/data.txt
 allPerl: MatrixMult1Perl MatrixMult2Perl MatrixMult3Perl Concat1Perl Concat2Perl Concat3Perl Regexp1Perl Regexp2Perl Regexp3Perl
 
 MatrixMult1Perl:
+	$(TIME) perl $(D)/MatrixMult1.pl $(MATRIX_MULT_DATA) 100 --dry-run
 	$(TIME) perl $(D)/MatrixMult1.pl $(MATRIX_MULT_DATA) 100
+	$(TIME) perl $(D)/MatrixMult1.pl $(MATRIX_MULT_DATA) 100 --float --dry-run
 	$(TIME) perl $(D)/MatrixMult1.pl $(MATRIX_MULT_DATA) 100 --float
 
 MatrixMult2Perl:
@@ -28,6 +30,7 @@ MatrixMult3Perl:
 
 
 Concat1Perl:
+	$(TIME) perl $(D)/Concat1.pl $(CONCAT_DATA) --dry-run
 	$(TIME) perl $(D)/Concat1.pl $(CONCAT_DATA)
 
 Concat2Perl:
@@ -39,7 +42,9 @@ Concat3Perl:
 
 
 Regexp1Perl:
+	$(TIME) perl $(D)/Regexp1.pl $(REGEXP_DATA) --dry-run
 	$(TIME) perl $(D)/Regexp1.pl $(REGEXP_DATA)
+	$(TIME) perl $(D)/Regexp1.pl $(REGEXP_DATA) --with-or-operator --dry-run
 	$(TIME) perl $(D)/Regexp1.pl $(REGEXP_DATA) --with-or-operator
 
 Regexp2Perl:

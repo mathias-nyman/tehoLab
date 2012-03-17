@@ -47,14 +47,39 @@ sub multiply_matrix{
 
 #program entry:
 
-if($#ARGV < 1 || $#ARGV > 2){
+if($#ARGV < 1 || $#ARGV > 3){
 	die "Illegal number of arguments";
 }
 
 $is_float = 0;
-if($#ARGV == 2 && $ARGV[2] == "--float"){
-	$is_float = 1;
+$dry_run = 0;
+
+if($#ARGV == 2){
+	if($ARGV[2] eq "--float"){
+		$is_float = 1;
+	}
+	elsif($ARGV[2] eq "--dry-run"){
+		$dry_run = 1;
+	}
+	else{
+		die "Illegal argument: ".$ARGV[2];
+	}
 }
+if($#ARGV == 3){
+	if($ARGV[2] eq "--float" && $ARGV[3] eq "--dry-run"){
+		$is_float = 1;
+		$dry_run = 1;
+	}
+	else{
+		die "Illegal arguments: ".$ARGV[2]." ".$ARGV[3];
+	}
+}
+
 $dim = $ARGV[1];
 
-multiply_matrix(read_input($ARGV[0], $is_float));
+if($dry_run == 1){
+	read_input($ARGV[0], $is_float);
+}
+else{
+	multiply_matrix(read_input($ARGV[0], $is_float));
+}
