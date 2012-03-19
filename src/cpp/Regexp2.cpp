@@ -2,7 +2,7 @@
 #include <istream>
 #include <fstream>
 #include <vector>
-//#include <regex> //NOTE: see other note
+#include <boost/regex.hpp>
 
 using namespace std;
 int main(int argv, char** argc) {
@@ -15,12 +15,11 @@ int main(int argv, char** argc) {
     if (argv > 2 and argc[3] == "--dry-run")
         dryRun = true;
 
-    //NOTE: C++0x standard's regex has not been done yet
-    //      See url for up-to-date information:
-    //      http://gcc.gnu.org/onlinedocs/libstdc++/manual/status.html#status.iso.200x
-    //regex pattern("\\d+");
     if (argv > 2 and argc[2] == "--with-or-operator") {
-        //pattern = regex("\\d+|\\w+\\d+\\.");
+        boost::regex pattern("\\d+|\\w+\\d+\\.");
+    }
+    else {
+        boost::regex pattern("\\d+");
     }
 
     vector<string> lines;

@@ -5,6 +5,7 @@ CONCAT_DATA:=data/concat/data.txt
 REGEXP_DATA:=data/regexp/data.txt
 
 TIME:=time -v
+BOOST:=ext/boost
 
 all: MatrixMult Concat Regexp
 	@echo "Done."
