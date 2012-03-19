@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <string.h>
 
 #define INDEX(vector, dim, row, col) ((vector)[(dim)*(row)+(col)])
 #define FLOATS_PER_ROW 5000
