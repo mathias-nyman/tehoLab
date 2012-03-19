@@ -82,13 +82,6 @@ public class Regexp3
 		
 		List<CharSequence> lines = new ArrayList<CharSequence>();
 		
-		/*
-		 * IRC:
-		 * 22:28 -´@: btw. mikä on stringitesteissä syötteen koodaus? UTF8?
-		 * 22:28 -´@: voi olla yksinkertaisinta pysytellä ASCII osassa
-		 * 22:28 -´@: sit ei tarvii ottaa kantaa
-		 * 23:00  tiitu~__> snoukkis: samaa mieltä
-		 */
 		Charset us_ascii = Charset.forName("US-ASCII");
 		/*
 		 * other possibilities...
