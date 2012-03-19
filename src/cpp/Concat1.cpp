@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <string.h>
 
 void concatenate(const char *input_file, bool dry_run)
 {
