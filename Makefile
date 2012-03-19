@@ -4,7 +4,7 @@ MATRIX_MULT_DATA:=data/matrix_mult/data.txt
 CONCAT_DATA:=data/concat/data.txt
 REGEXP_DATA:=data/regexp/data.txt
 
-TIME:=time
+TIME:=time -v
 
 all: MatrixMult Concat Regexp
 	@echo "Done."
