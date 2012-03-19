@@ -17,7 +17,7 @@ int main(int argv, char** argc) {
         dryRun = true;
 
     boost::regex pattern("\\d+");
-    if (argv > 2 and argc[2] == "--with-or-operator") {
+    if (argv > 2 and not strcmp(argc[2], "--with-or-operator")) {
         boost::regex pattern("\\d+|\\w+\\d+\\.");
     }
 

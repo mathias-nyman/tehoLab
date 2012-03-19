@@ -2,6 +2,7 @@
 #include <istream>
 #include <fstream>
 #include <vector>
+#include <string.h>
 
 using namespace std;
 
@@ -43,12 +44,12 @@ int main(int argv, char** argc) {
     sscanf(argc[2], "%d", &dimension);
 
     bool dryRun = false;
-    if (argv > 3 and argc[3] == "--dry-run")
+    if (argv > 3 and not strcmp(argc[3], "--dry-run"))
         dryRun = true;
-    if (argv > 4 and argc[4] == "--dry-run")
+    if (argv > 4 and not strcmp(argc[4], "--dry-run"))
         dryRun = true;
 
-    if (argv > 3 and argc[3] == "--float") {
+    if (argv > 3 and not strcmp(argc[3], "--float")) {
         matrixMult<int>(inStream, dimension, dryRun);
     }
     else {

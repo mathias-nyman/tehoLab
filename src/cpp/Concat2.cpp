@@ -1,13 +1,14 @@
 #include <string>
 #include <istream>
 #include <fstream>
+#include <string.h>
 
 using namespace std;
 int main(int argv, char** argc) {
     ifstream inStream;
     inStream.open(argc[1]);
     bool dryRun = false;
-    if (argv > 2 and argc[2] == "--dry-run")
+    if (argv > 2 and not strcmp(argc[2], "--dry-run"))
         dryRun = true;
 
     string concatenated;
