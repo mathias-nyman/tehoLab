@@ -68,6 +68,8 @@ void longer_transition(Regexp *regexp, const char c)
 		case DIGIT:
 			if(c == '.')
 				regexp->state = FINAL;
+			else if(isalnum(c) || c == '_')
+				regexp->state = ALNUM;
 			else if(!isdigit(c))
 				regexp->state = INITIAL;
 			break;

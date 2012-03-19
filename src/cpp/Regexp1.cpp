@@ -89,6 +89,8 @@ public:
 			case DIGIT:
 				if(c == '.')
 					state = FINAL;
+				else if(isalnum(c) || c == '_')
+					state = ALNUM;
 				else if(!isdigit(c))
 					state = INITIAL;
 				break;
