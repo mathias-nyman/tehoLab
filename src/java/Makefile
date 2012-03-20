@@ -30,7 +30,9 @@ MatrixMult2Java:
 
 MatrixMult3Java:
 	@javac $(D)/MatrixMult3.java
+	$(TIME) $(JAVA) -cp $(D) MatrixMult3 $(MATRIX_MULT_DATA) 100 --dry-run
 	$(TIME) $(JAVA) -cp $(D) MatrixMult3 $(MATRIX_MULT_DATA) 100
+	$(TIME) $(JAVA) -cp $(D) MatrixMult3 $(MATRIX_MULT_DATA) 100 --float --dry-run
 	$(TIME) $(JAVA) -cp $(D) MatrixMult3 $(MATRIX_MULT_DATA) 100 --float
 
 
@@ -46,6 +48,7 @@ Concat2Java:
 
 Concat3Java:
 	@javac $(D)/Concat3.java
+	$(TIME) $(JAVA) -cp $(D) Concat3 $(CONCAT_DATA) --dry-run
 	$(TIME) $(JAVA) -cp $(D) Concat3 $(CONCAT_DATA)
 
 
@@ -65,6 +68,8 @@ Regexp2Java:
 
 Regexp3Java:
 	@javac $(D)/Regexp3.java
+	$(TIME) $(JAVA) -cp $(D) Regexp3 $(REGEXP_DATA) --dry-run
 	$(TIME) $(JAVA) -cp $(D) Regexp3 $(REGEXP_DATA)
+	$(TIME) $(JAVA) -cp $(D) Regexp3 $(REGEXP_DATA) --with-or-operator --dry-run
 	$(TIME) $(JAVA) -cp $(D) Regexp3 $(REGEXP_DATA) --with-or-operator
 

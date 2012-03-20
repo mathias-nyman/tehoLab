@@ -33,7 +33,9 @@ MatrixMult2Cpp:
 
 MatrixMult3Cpp:
 	@$(CXX) -o $(D)/$@ $(D)/MatrixMult3.cpp
+	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100 --dry-run
 	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100
+	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100 --float --dry-run
 	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100 --float
 
 
@@ -49,6 +51,7 @@ Concat2Cpp:
 
 Concat3Cpp:
 	@$(CXX) -o $(D)/$@ $(D)/Concat3.cpp
+	$(TIME) $(D)/$@ $(CONCAT_DATA) --dry-run
 	$(TIME) $(D)/$@ $(CONCAT_DATA)
 
 

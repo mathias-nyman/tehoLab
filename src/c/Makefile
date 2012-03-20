@@ -26,7 +26,9 @@ MatrixMult2C:
 
 MatrixMult3C:
 	@gcc -o $(D)/$@ $(D)/MatrixMult3.c
+	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100 --dry-run
 	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100
+	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100 --float --dry-run
 	$(TIME) $(D)/$@ $(MATRIX_MULT_DATA) 100 --float
 
 
@@ -41,6 +43,7 @@ Concat2C:
 
 Concat3C:
 	@gcc -o $(D)/$@ $(D)/Concat3.c
+	$(TIME) $(D)/$@ $(CONCAT_DATA) --dry-run
 	$(TIME) $(D)/$@ $(CONCAT_DATA)
 
 
@@ -58,6 +61,8 @@ Regexp2C:
 
 Regexp3C:
 	@gcc -o $(D)/$@ $(D)/Regexp3.c
+	$(TIME) $(D)/$@ $(REGEXP_DATA) --dry-run
 	$(TIME) $(D)/$@ $(REGEXP_DATA)
+	$(TIME) $(D)/$@ $(REGEXP_DATA) --with-or-operator --dry-run
 	$(TIME) $(D)/$@ $(REGEXP_DATA) --with-or-operator
 
