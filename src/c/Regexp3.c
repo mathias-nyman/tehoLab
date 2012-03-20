@@ -18,7 +18,7 @@ char* readFile(const char *filename)
 	fseek(file, 0L, SEEK_SET);
 	
 	// allocate buffer
-	char* buffer = (char*)malloc(fileLength * sizeof(char));
+	char* buffer = (char*)malloc((fileLength + 1) * sizeof(char));
 	
 	// close file and bail if allocation fails
 	if(buffer == NULL)
