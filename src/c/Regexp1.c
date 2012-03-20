@@ -2,18 +2,121 @@
  *  Regexp1.c
  *  
  *
- *  Created by Jukka Aro on 10.3.2012.
+ *  Created by Jukka Aro on 15.3.2012.
  *
  */
-#include <regex.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 
-#define MAX_LINE_LENGTH 150
+#define MAX_LINE_LENGTH 250
 
-void regex_match(const char *input_file, int or_operator)
+typedef enum
+{
+	FALSE = 0,
+	TRUE = 1
+} Boolean;
+
+typedef enum
+{
+	INITIAL,
+	ALNUM,
+	DIGIT,
+	FINAL
+} State;
+
+typedef struct R
+{
+	State state;
+	void (*transition)(struct R *regexp, const char c);
+	Boolean (*is_final)(struct R *regexp, Boolean is_last);
+	struct R *next;
+} Regexp;
+
+void short_transition(Regexp *regexp, const char c)
+{
+	switch(regexp->state)
+	{
+		case INITIAL:
+			if(isdigit(c))
+				regexp->state = DIGIT;
+			break;
+		case DIGIT:
+			if(!isdigit(c))
+				regexp->state = FINAL;
+			break;
+		default:
+			break;
+	}
+}
+
+void longer_transition(Regexp *regexp, const char c)
+{
+	switch(regexp->state)
+	{
+		case INITIAL:
+			if(isalnum(c) || c == '_')
+				regexp->state = ALNUM;
+			break;
+		case ALNUM:
+			if(isdigit(c))
+				regexp->state = DIGIT;
+			else if(!isalnum(c) && c != '_')
+				regexp->state = INITIAL;
+			break;
+		case DIGIT:
+			if(c == '.')
+				regexp->state = FINAL;
+			else if(isalnum(c) || c == '_')
+				regexp->state = ALNUM;
+			else if(!isdigit(c))
+				regexp->state = INITIAL;
+			break;
+		default:
+			break;
+	}
+}
+
+Boolean short_is_final(Regexp *regexp, Boolean is_last)
+{
+	return regexp->state == FINAL || (is_last && regexp->state == DIGIT);
+}
+
+Boolean longer_is_final(Regexp *regexp, Boolean is_last)
+{
+	return regexp->state == FINAL;
+}
+
+Boolean find_regex(const char *line, Boolean or_operator)
+{
+	if(strlen(line) > 0)
+	{
+		Regexp shortR = {INITIAL, short_transition, short_is_final, 0}, longerR;
+		Regexp *head = &shortR;
+		
+		if(or_operator)
+		{
+			Regexp tmp = {INITIAL, longer_transition, longer_is_final, 0};
+			longerR = tmp;
+			head->next = &longerR;
+		}
+		int i = 0;
+		do {
+			Regexp *curr;
+			for(curr = head; curr != 0; curr = curr->next)
+			{
+				curr->transition(curr, line[i]);
+				if(curr->is_final(curr, line[i+1] == '\0'))
+					return TRUE;
+			}
+			i++;
+		} while(line[i] != '\0');
+	}
+	return FALSE;
+}
+
+void regex_match(const char *input_file, const Boolean or_operator)
 {
 	FILE *f = fopen(input_file, "r");
 	
@@ -22,81 +125,68 @@ void regex_match(const char *input_file, int or_operator)
 		fprintf(stderr, "Could not open file %s\n", input_file);
 		exit(1);
 	}
-	
-	regex_t preg_normal, preg_or;
-	const char *normal_pattern = "[[:digit:]+]";
-	const char *or_pattern = "[[[:alnum:]_]+][[:digit:]+]\\.";
-
-	if(0 != regcomp(&preg_normal, normal_pattern, REG_NOSUB) ||
-	   0 != regcomp(&preg_or, or_pattern, REG_NOSUB))
-	{
-		fprintf(stderr, "regcomp() failed\n");
-		fclose(f);
-		exit(EXIT_FAILURE);
-	}
 
 	int matches = 0;
 	char line[MAX_LINE_LENGTH];
-
-	clock_t total = 0;
 	
-	if(or_operator)
+	while(fgets(line, MAX_LINE_LENGTH, f))
 	{
-		while(fgets(line, MAX_LINE_LENGTH, f))
-		{
-			clock_t start = clock();
-			
-			if(0 == regexec(&preg_normal, line, 0, 0, 0) ||
-			   0 == regexec(&preg_or, line, 0, 0, 0))
-			{
-				matches++;
-			}
-			clock_t end = clock();
-			total += end-start;
-		}
+		if(find_regex(line, or_operator))
+			matches++;
 	}
-	else
-	{
-		while(fgets(line, MAX_LINE_LENGTH, f))
-		{
-			clock_t start = clock();
-			
-			if(0 == regexec(&preg_normal, line, 0, 0, 0))
-			{
-				matches++;
-			}
-			clock_t end = clock();
-			total += end-start;
-		}
-	}
-
-	regfree(&preg_normal);
-	regfree(&preg_or);
 	fclose(f);
-	printf("%.4lf\n", (double)total/CLOCKS_PER_SEC);
 }
 
 int main(int argc, char **argv)
 {
-	if(argc < 2 || argc > 3)
-	{
-		fprintf(stderr, "Illegal number of arguments\n");
-		exit(1);
-	}
+	Boolean or_operator = FALSE;
+	Boolean dry_run = FALSE;
 	
-	int or_operator = 0;
-	
-	if(argc == 3)
-	{
-		if(!strcmp(argv[2], "--with-or-operator"))
-			or_operator = 1;
-		else
-		{
-			fprintf(stderr, "Illegal argument: %s\n", argv[2]);
+	switch(argc)
+	{		
+		case 2:
+			break;
+		case 3:
+			if(!strcmp(argv[2], "--with-or-operator"))
+			{
+				or_operator = TRUE;
+			}
+			else if(!strcmp(argv[2], "--dry-run"))
+			{
+				dry_run = TRUE;
+			}
+			else
+			{
+				fprintf(stderr, "Illegal argument: %s\n", argv[2]);
+				exit(1);
+			}
+			break;
+		case 4:
+			if(!strcmp(argv[2], "--with-or-operator"))
+			{
+				or_operator = TRUE;
+			}
+			else
+			{
+				fprintf(stderr, "Illegal argument: %s\n", argv[2]);
+				exit(1);
+			}
+			
+			if(!strcmp(argv[3], "--dry-run"))
+			{
+				dry_run = TRUE;
+			}
+			else
+			{
+				fprintf(stderr, "Illegal argument: %s\n", argv[3]);
+				exit(1);
+			}
+			break;
+		default:
+			fprintf(stderr, "Illegal number of arguments\n");
 			exit(1);
-		}
-	}
-	
-	regex_match(argv[1], or_operator);
+	}	
+	if(!dry_run)
+		regex_match(argv[1], or_operator);
     return 0;
 }

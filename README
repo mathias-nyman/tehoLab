@@ -1,0 +1,67 @@
+=============================================================================
+
+            Performance Comparison of Five Programming Languages: 
+                       C, C++, Java, Perl and Python
+
+=============================================================================
+
+
+-----------------------------------------------------------------------------
+Files and Directories
+-----------------------------------------------------------------------------
+
+The directory structure for the source code is as described below, with each
+language specific directory containing all the different implementations in
+separate files for the three tests; Concatenation, Matrix multiplication and
+Regular expression.
+
+Makefile
+data/
+src/
+    c/
+        Makefile
+        ConcatX.c
+        MatrixMultX.c
+        RegexpX.c
+    cpp/
+    java/
+    perl/
+    python/
+
+Each language specific folder also contains it's own Makefile, which can be
+used for compiling and running single implementations or all tests in the
+directory. The top-level Makefile includes each sub-makefile and adds targets
+for running a test set (e.g. Regexp) for all implementations in all
+languages, or only all implementations of a test set for one language, or
+simply compile and run all test sets.
+
+The data-directory in the repository contains reasonably sized data sets, but
+large-sized data shall be fetched prior running the tests (see Dependencies).
+
+
+-----------------------------------------------------------------------------
+Dependencies
+-----------------------------------------------------------------------------
+
+A basic development environment is considered as a pre-requisit, including at
+least the following: Make, gcc, g++, JDK, Perl and Python. In addition to
+this, Boost Regex library is needed, which can be installed by issuing the
+following command in the top-level directory:
+
+  make boost
+
+Some large-sized data is needed as input, and can be fetched by issuing the
+following command in the top-level directory:
+
+  make data
+
+
+-----------------------------------------------------------------------------
+Test
+-----------------------------------------------------------------------------
+
+To compile and run all the tests in the repository simply run the following
+command in the top-level directory:
+
+  make
+

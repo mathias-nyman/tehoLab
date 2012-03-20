@@ -33,8 +33,11 @@ void read_input_file_int(const char *input_file, int dim, int *in_matrix)
 			{
 				INDEX(in_matrix, dim, i, j) = (int)scan_float(f);
 			}
-			for(; j < FLOATS_PER_ROW; j++)
-				scan_float(f);
+			if(j < FLOATS_PER_ROW)
+			{
+				char foo[10*FLOATS_PER_ROW];
+				fgets(foo, 10*FLOATS_PER_ROW, f);
+			}
 		}
 		fclose(f);
 	}
@@ -54,14 +57,17 @@ void read_input_file_float(const char *input_file, int dim, float *in_matrix)
 			{
 				INDEX(in_matrix, dim, i, j) = scan_float(f);
 			}
-			for(; j < FLOATS_PER_ROW; j++)
-				scan_float(f);
+			if(j < FLOATS_PER_ROW)
+			{
+				char foo[10*FLOATS_PER_ROW];
+				fgets(foo, 10*FLOATS_PER_ROW, f);
+			}
 		}
 		fclose(f);
 	}
 }
 
-void multiply_int_matrix(const char *input_file, int dim)
+void multiply_int_matrix(const char *input_file, int dim, int dry_run)
 {
 	int *in_matrix = malloc(dim*dim*sizeof(int));
 	
@@ -72,6 +78,8 @@ void multiply_int_matrix(const char *input_file, int dim)
 	}
 	
 	read_input_file_int(input_file, dim, in_matrix);
+	
+	if(dry_run) { free(in_matrix); return; }
 	
 	int *out_matrix = malloc(dim*dim*sizeof(int));
 	
@@ -84,8 +92,6 @@ void multiply_int_matrix(const char *input_file, int dim)
 	
 	int i, j, k;
 
-	clock_t start = clock();
-	
 	for(i = 0; i < dim; i++)
 	{
 		for(j = 0; j < dim; j++)
@@ -97,15 +103,11 @@ void multiply_int_matrix(const char *input_file, int dim)
 		}
 	}
 
-	clock_t end = clock();
-	
-	printf("%d %lf\n", dim, (double)(end-start)/CLOCKS_PER_SEC);
-
 	free(in_matrix);
 	free(out_matrix);
 }
 
-void multiply_float_matrix(const char *input_file, int dim)
+void multiply_float_matrix(const char *input_file, int dim, int dry_run)
 {
 	float *in_matrix = malloc(dim*dim*sizeof(float));
 	
@@ -117,6 +119,8 @@ void multiply_float_matrix(const char *input_file, int dim)
 	
 	read_input_file_float(input_file, dim, in_matrix);
 	
+	if(dry_run) { free(in_matrix); return; }
+	
 	float *out_matrix = malloc(dim*dim*sizeof(float));
 	
 	if(!out_matrix)
@@ -126,8 +130,6 @@ void multiply_float_matrix(const char *input_file, int dim)
 	}
 	
 	int i, j, k;
-	
-	clock_t start = clock();
 	
 	for(i = 0; i < dim; i++)
 	{
@@ -139,21 +141,46 @@ void multiply_float_matrix(const char *input_file, int dim)
 			INDEX(out_matrix, dim, i, j) = res;
 		}
 	}
-	
-	clock_t end = clock();
-	
-	printf("%d %lf\n", dim, (double)(end-start)/CLOCKS_PER_SEC);
 
 	free(in_matrix);
 	free(out_matrix);
 }
 
-void parse_params(int argc, char **argv, char **input_file, int *dim, int *is_float)
+void parse_params(int argc, char **argv, char **input_file, int *dim, int *is_float, int *dry_run)
 {
-	if(argc < 3 || argc > 5)
+	switch(argc)
 	{
-		fprintf(stderr, "Illegal number of arguments\n");
-		exit(1);
+		case 3:
+			break;
+		case 4:
+			if(!strcmp(argv[3], "--float"))
+				*is_float = 1;
+			else
+			{
+				if(!strcmp(argv[3], "--dry-run"))
+					*dry_run = 1;
+				else
+				{
+					fprintf(stderr, "Illegal argument: %s\n", argv[3]);
+					exit(1);
+				}
+			}
+			break;
+		case 5:
+			if(!strcmp(argv[3], "--float") && !strcmp(argv[4], "--dry-run"))
+			{
+				*is_float = 1;
+				*dry_run = 1;
+			}
+			else
+			{
+				fprintf(stderr, "Illegal arguments: %s %s\n", argv[3], argv[4]);
+				exit(1);
+			}
+			break;
+		default:
+			fprintf(stderr, "Illegal number of arguments\n");
+			exit(1);
 	}
 	
 	*input_file = argv[1];
@@ -163,30 +190,19 @@ void parse_params(int argc, char **argv, char **input_file, int *dim, int *is_fl
 		fprintf(stderr, "Illegal argument: %s\n", argv[2]);
 		exit(1);
 	}
-	
-	if(argc == 4)
-	{
-		if(!strcmp(argv[3], "--float"))
-			*is_float = 1;
-		else
-		{
-			fprintf(stderr, "Illegal argument: %s\n", argv[3]);
-			exit(1);
-		}
-	}
 }
 
 int main(int argc, char **argv)
 {
-	int is_float = 0, dim = 0;
+	int is_float = 0, dim = 0, dry_run = 0;
 	char *input_file;
 	
-	parse_params(argc, argv, &input_file, &dim, &is_float);
+	parse_params(argc, argv, &input_file, &dim, &is_float, &dry_run);
 	
 	if(is_float)
-		multiply_float_matrix(input_file, dim);
+		multiply_float_matrix(input_file, dim, dry_run);
 	else
-		multiply_int_matrix(input_file, dim);
+		multiply_int_matrix(input_file, dim, dry_run);
 
     return 0;
 }

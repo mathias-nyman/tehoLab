@@ -6,18 +6,30 @@
 
 sub concatenate{
 	open FILE, $_[0] or die $!;
-	$res = "";
-	while(<FILE>){
-		chomp();
-		$res .= $_;
+	if($_[1] == 0) {
+		$res = "";
+		while(<FILE>){
+			chomp();
+			$res .= $_;
+		}
+	}
+	else {
+		while(<FILE>){
+			chomp();
+		}
 	}
 	close(FILE);
 }
 
 #program entry:
 
-if($#ARGV != 0){
+if($#ARGV > 1){
 	die "Illegal number of arguments";
 }
-
-concatenate($ARGV[0]);
+if($#ARGV == 1 && $ARGV[1] == "--dry-run"){
+	$dry_run = 1;
+}
+else {
+	$dry_run = 0;
+}
+concatenate($ARGV[0], $dry_run);

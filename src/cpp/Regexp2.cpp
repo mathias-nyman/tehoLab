@@ -2,7 +2,8 @@
 #include <istream>
 #include <fstream>
 #include <vector>
-//#include <regex> //NOTE: see other note
+#include <string.h>
+#include <boost/regex.hpp>
 
 using namespace std;
 int main(int argv, char** argc) {
@@ -10,17 +11,14 @@ int main(int argv, char** argc) {
     inStream.open(argc[1]);
 
     bool dryRun = false;
-    if (argv > 2 and argc[2] == "--dry-run")
+    if (argv > 2 and not strcmp(argc[2], "--dry-run"))
         dryRun = true;
-    if (argv > 2 and argc[3] == "--dry-run")
+    if (argv > 3 and not strcmp(argc[3], "--dry-run"))
         dryRun = true;
 
-    //NOTE: C++0x standard's regex has not been done yet
-    //      See url for up-to-date information:
-    //      http://gcc.gnu.org/onlinedocs/libstdc++/manual/status.html#status.iso.200x
-    //regex pattern("\\d+");
-    if (argv > 2 and argc[2] == "--with-or-operator") {
-        //pattern = regex("\\d+|\\w+\\d+\\.");
+    boost::regex pattern("\\d+");
+    if (argv > 2 and not strcmp(argc[2], "--with-or-operator")) {
+        boost::regex pattern("\\d+|\\w+\\d+\\.");
     }
 
     vector<string> lines;
@@ -31,16 +29,19 @@ int main(int argv, char** argc) {
     }
     inStream.close();
 
-    if (argv > 2 and argc[2] == "--dry-run")
+    if (dryRun)
         return 0;
-    if (argv > 3 and argc[3] == "--dry-run")
-        return 0;
+
+    size_t amountFound = 0;
+    boost::smatch matches;
 
     vector<string>::const_iterator it = lines.begin();
     vector<string>::const_iterator end = lines.end();
     for (; it != end; ++it) {
+        if (boost::regex_search(*it, pattern)) {
+            amountFound++;
+        }
     }
-
 
     return 0;
 }

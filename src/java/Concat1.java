@@ -9,7 +9,7 @@ import java.io.*;
 
 class Concat1 {
 	
-	void concatenate(String inputFile) {
+	void concatenate(String inputFile, boolean dryRun) {
 		FileReader fr = null;
 		
 		try {
@@ -22,11 +22,15 @@ class Concat1 {
 		BufferedReader lineReader = new BufferedReader(fr);
 		
 		String currentLine = null;
-		StringBuffer result = new StringBuffer();
 		
 		try {
-			while((currentLine = lineReader.readLine()) != null) {
-				result.append(currentLine.trim());
+			if(dryRun)
+				while((currentLine = lineReader.readLine()) != null);
+			else {
+				StringBuffer result = new StringBuffer();
+				while((currentLine = lineReader.readLine()) != null) {
+					result.append(currentLine.trim());
+				}
 			}
 			lineReader.close();
 		} catch(IOException e) {
@@ -36,11 +40,20 @@ class Concat1 {
 	}
 	
     public static void main(String[] args) {
-		if(args.length != 1) {
-			System.err.println("Illegal number of arguments");
-			System.exit(1);
+		boolean dryRun = false;
+		
+		switch(args.length){
+			case 1:
+				break;
+			case 2:
+				if(args[1].compareTo("--dry-run") == 0)
+					dryRun = true;
+				break;
+			default:
+				System.err.println("Illegal number of arguments");
+				System.exit(1);
 		}
 		
-		new Concat1().concatenate(args[0]);
+		new Concat1().concatenate(args[0], dryRun);
     }
 }
