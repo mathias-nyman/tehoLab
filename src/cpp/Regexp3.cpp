@@ -2,6 +2,7 @@
 #include <fstream>
 #include <stdexcept>
 #include <vector>
+#include <boost/regex.hpp>
 
 using std::string;
 using std::cout;
@@ -9,6 +10,8 @@ using std::endl;
 using std::runtime_error;
 using std::ifstream;
 using std::vector;
+using boost::regex;
+using boost::regex_search;
 
 class Configuration
 {
@@ -121,21 +124,18 @@ int main(int argc, char** argv)
 			patternString = "\\d+";
 		}
 		
-		// PORT THIS JAVA CODE: Pattern pattern = Pattern.compile(patternString);
+		regex pattern(patternString);
 		
 		int countMatches = 0;
 		for(vector<string>::const_iterator iterator = lines->begin(); iterator != lines->end(); iterator++)
 		{
-			// PORT THIS JAVA CODE: Matcher matcher = pattern.matcher(*iterator);
-			
-			
-			if(true) // PORT THIS JAVA CODE: if(matcher.find())
+			if(regex_search(*iterator, pattern))
 			{
 				countMatches++;
 			}
 		}
 		
-		//cout << countMatches << endl;
+		cout << countMatches << endl;
 	}
 	
 	delete lines;

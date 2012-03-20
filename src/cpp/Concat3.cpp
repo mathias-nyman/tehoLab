@@ -100,6 +100,8 @@ int main(int argc, char** argv)
 		{
 			result.append(*iterator + '\n');
 		}
+		
+		//cout << result << endl;
 	}
 	
 	delete lines;
