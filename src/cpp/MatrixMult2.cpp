@@ -41,7 +41,7 @@ int main(int argv, char** argc) {
     ifstream inStream;
     inStream.open(argc[1]);
     size_t dimension;
-    sscanf(argc[2], "%d", &dimension);
+    sscanf(argc[2], "%zd", &dimension);
 
     bool dryRun = false;
     if (argv > 3 and not strcmp(argc[3], "--dry-run"))
