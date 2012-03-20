@@ -67,7 +67,8 @@ Regexp2Cpp:
 	$(BOOST_ENV) $(TIME) $(D)/$@ $(REGEXP_DATA) --with-or-operator
 
 Regexp3Cpp:
-	@$(CXX) -o $(D)/$@ $(D)/Regexp3.cpp
-	$(TIME) $(D)/$@ $(REGEXP_DATA)
-	$(TIME) $(D)/$@ $(REGEXP_DATA) --with-or-operator
-
+	@$(CXX) $(BOOST_FLAGS) -o $(D)/$@ $(D)/Regexp3.cpp
+	$(BOOST_ENV) $(TIME) $(D)/$@ $(REGEXP_DATA) --dry-run
+	$(BOOST_ENV) $(TIME) $(D)/$@ $(REGEXP_DATA)
+	$(BOOST_ENV) $(TIME) $(D)/$@ $(REGEXP_DATA) --with-or-operator --dry-run
+	$(BOOST_ENV) $(TIME) $(D)/$@ $(REGEXP_DATA) --with-or-operator

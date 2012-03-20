@@ -135,7 +135,7 @@ int main(int argc, char** argv)
 			}
 		}
 		
-		cout << countMatches << endl;
+		//cout << countMatches << endl;
 	}
 	
 	delete lines;
