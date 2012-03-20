@@ -83,13 +83,6 @@ public class Regexp3
 		List<CharSequence> lines = new ArrayList<CharSequence>();
 		
 		Charset us_ascii = Charset.forName("US-ASCII");
-		/*
-		 * other possibilities...
-		 * 
-		 * Charset iso_8859_1 = Charset.forName("ISO-8859-1");
-		 * Charset iso_8859_15 = Charset.forName("ISO-8859-15");
-		 * Charset utf_8 = Charset.forName("UTF-8");
-		*/
 		
 		// read file entirely into memory
 		BufferedReader bufferedReader = null;
