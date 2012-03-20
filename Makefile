@@ -4,7 +4,7 @@ MATRIX_MULT_DATA:=data/matrix_mult/data.txt
 CONCAT_DATA:=data/concat/data.txt
 REGEXP_DATA:=data/regexp/data.txt
 
-TIME:=time -v
+TIME:=time
 BOOST:=ext/boost
 
 all: MatrixMult Concat Regexp
