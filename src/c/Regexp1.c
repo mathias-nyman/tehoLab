@@ -116,7 +116,7 @@ Boolean find_regex(const char *line, Boolean or_operator)
 	return FALSE;
 }
 
-void regex_match(const char *input_file, const Boolean or_operator)
+void regex_match(const char *input_file, const Boolean or_operator, Boolean dry_run)
 {
 	FILE *f = fopen(input_file, "r");
 	
@@ -125,14 +125,21 @@ void regex_match(const char *input_file, const Boolean or_operator)
 		fprintf(stderr, "Could not open file %s\n", input_file);
 		exit(1);
 	}
-
-	int matches = 0;
-	char line[MAX_LINE_LENGTH];
-	
-	while(fgets(line, MAX_LINE_LENGTH, f))
+	if(!dry_run)
 	{
-		if(find_regex(line, or_operator))
-			matches++;
+		int matches = 0;
+		char line[MAX_LINE_LENGTH];
+	
+		while(fgets(line, MAX_LINE_LENGTH, f))
+		{
+			if(find_regex(line, or_operator))
+				matches++;
+		}
+	}
+	else
+	{
+		char line[MAX_LINE_LENGTH];
+		while(fgets(line, MAX_LINE_LENGTH, f));
 	}
 	fclose(f);
 }
@@ -186,7 +193,6 @@ int main(int argc, char **argv)
 			fprintf(stderr, "Illegal number of arguments\n");
 			exit(1);
 	}	
-	if(!dry_run)
-		regex_match(argv[1], or_operator);
+	regex_match(argv[1], or_operator, dry_run);
     return 0;
 }

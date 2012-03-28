@@ -132,17 +132,23 @@ bool find_regex(std::string &line, bool or_operator)
 	return false;
 }
 
-void regex_match(const char *input_file, bool or_operator)
+void regex_match(const char *input_file, bool or_operator, bool dry_run)
 {
 	std::ifstream ifs(input_file, std::ifstream::in);
 	std::string line;
-	int matches = 0;
 
-	while(getline(ifs, line))
+	if(!dry_run)
 	{
-		if(find_regex(line, or_operator))
-			matches++;
+		int matches = 0;
+		while(getline(ifs, line))
+		{
+			if(find_regex(line, or_operator))
+				matches++;
+		}
 	}
+	else
+		while(getline(ifs, line));
+
 	ifs.close();
 }
 
@@ -194,9 +200,9 @@ int main(int argc, char **argv)
 		default:
 			fprintf(stderr, "Illegal number of arguments\n");
 			exit(1);
-	}	
-	if(!dry_run)
-		regex_match(argv[1], or_operator);
+	}
+	
+	regex_match(argv[1], or_operator, dry_run);
 	
     return 0;
 }

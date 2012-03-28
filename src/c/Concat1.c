@@ -26,11 +26,11 @@ void concatenate(const char *input_file, int dry_run)
 	char tmp[MAX_WORD_LENGTH];
 
 	if(dry_run)
-		while(EOF != fscanf(f, "%s", tmp));
+		while(fgets(tmp, MAX_WORD_LENGTH, f));
 	else
 	{
 		char result[MAX_LINE_LENGTH];
-		while(EOF != fscanf(f, "%s", tmp))
+		while(fgets(tmp, MAX_WORD_LENGTH, f))
 		{
 			strcat(result, tmp);
 		}

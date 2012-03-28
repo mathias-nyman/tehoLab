@@ -29,7 +29,7 @@ class Concat1 {
 			else {
 				StringBuffer result = new StringBuffer();
 				while((currentLine = lineReader.readLine()) != null) {
-					result.append(currentLine.trim());
+					result.append(currentLine + '\n');
 				}
 			}
 			lineReader.close();

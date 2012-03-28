@@ -20,7 +20,7 @@ void concatenate(const char *input_file, bool dry_run)
 		while(ifs.good())
 		{
 			std::string tmp;
-			ifs >> tmp;
+			getline(ifs, tmp);
 		}
 	}
 	else
@@ -29,8 +29,8 @@ void concatenate(const char *input_file, bool dry_run)
 		while(ifs.good())
 		{
 			std::string tmp;
-			ifs >> tmp;
-			result.append(tmp);
+			getline(ifs, tmp);
+			result.append(tmp + '\n');
 		}
 	}
 

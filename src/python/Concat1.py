@@ -10,11 +10,11 @@ def concatenate(input_file, dry_run):
 	f = open(input_file, 'r')
 	if dry_run:
 		for line in f:
-			line.rstrip()
+			pass
 	else:
 		s = '';
 		for line in f:
-			s += line.rstrip()
+			s += line
 	f.close()
 
 

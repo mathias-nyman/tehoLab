@@ -9,14 +9,11 @@ sub concatenate{
 	if($_[1] == 0) {
 		$res = "";
 		while(<FILE>){
-			chomp();
 			$res .= $_;
 		}
 	}
 	else {
-		while(<FILE>){
-			chomp();
-		}
+		while(<FILE>){}
 	}
 	close(FILE);
 }
