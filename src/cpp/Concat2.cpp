@@ -13,10 +13,16 @@ int main(int argv, char** argc) {
 
     string concatenated;
     string tmp;
-    while (inStream.good()) {
-        getline(inStream, tmp);
-        if (!dryRun)
-            concatenated += tmp + '\n';
+    if (dryRun) {
+        while (inStream.good()) {
+            getline(inStream, tmp);
+        }
+    }
+    else {
+        while (inStream.good()) {
+            getline(inStream, tmp);
+                concatenated += tmp + '\n';
+        }
     }
     inStream.close();
 

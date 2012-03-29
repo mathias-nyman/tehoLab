@@ -16,11 +16,6 @@ int main(int argv, char** argc) {
     if (argv > 3 and not strcmp(argc[3], "--dry-run"))
         dryRun = true;
 
-    boost::regex pattern("\\d+");
-    if (argv > 2 and not strcmp(argc[2], "--with-or-operator")) {
-        boost::regex pattern("\\d+|\\w+\\d+\\.");
-    }
-
     vector<string> lines;
     string line;
     while (inStream.good()) {
@@ -29,11 +24,20 @@ int main(int argv, char** argc) {
     }
     inStream.close();
 
-    if (dryRun)
+    if (dryRun) {
+        vector<string>::const_iterator it = lines.begin();
+        vector<string>::const_iterator end = lines.end();
+        for (; it != end; ++it) { }
         return 0;
+    }
 
     size_t amountFound = 0;
     boost::smatch matches;
+
+    boost::regex pattern("\\d+");
+    if (argv > 2 and not strcmp(argc[2], "--with-or-operator")) {
+        boost::regex pattern("\\d+|\\w+\\d+\\.");
+    }
 
     vector<string>::const_iterator it = lines.begin();
     vector<string>::const_iterator end = lines.end();
