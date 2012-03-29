@@ -9,9 +9,11 @@ sub main {
     my $amountFound = 0;
 
     if ($#ARGV > 1 and $ARGV[1] eq '--dry-run') {
+        foreach (@lines) { }
         return;
     }
     if ($#ARGV > 2 and $ARGV[2] eq '--dry-run') {
+        foreach (@lines) { }
         return;
     }
 
