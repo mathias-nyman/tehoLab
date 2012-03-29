@@ -133,24 +133,30 @@ int main(int argc, char **argv)
 	
 	// run the concatenation test
 	
-	if(!dryRun)
+	
+	// assuming it's not allowed to know the input length
+	
+	size_t resultBufferSize = BUFFER_GRANULARITY;
+	size_t resultBufferUsed = 0;
+	
+	char* resultBuffer = growOrKill(NULL, resultBufferSize * sizeof(char));
+	resultBuffer[0] = '\0';
+	
+	if(resultBuffer == NULL)
 	{
-		// assuming it's not allowed to know the input length
-		
-		size_t resultBufferSize = BUFFER_GRANULARITY;
-		size_t resultBufferUsed = 0;
-		
-		char* resultBuffer = growOrKill(NULL, resultBufferSize * sizeof(char));
-		resultBuffer[0] = '\0';
-		
-		if(resultBuffer == NULL)
-		{
-			free(lines);
-			free(buffer);
-			return EXIT_FAILURE;
-		}
-		
-		int i;
+		free(lines);
+		free(buffer);
+		return EXIT_FAILURE;
+	}
+	
+	int i;
+	
+	if(dryRun)
+	{
+		for(i = 0; i < lineCount; i++);
+	}
+	else
+	{
 		for(i = 0; i < lineCount; i++)
 		{
 			size_t lineLength = strlen(lines[i]);
@@ -175,11 +181,11 @@ int main(int argc, char **argv)
 			// debug print
 			//printf("%s\n", lines[i]);
 		}
-		
-		// debug print
-		//printf("%s", resultBuffer);
-		free(resultBuffer);
 	}
+
+	// debug print
+	//printf("%s", resultBuffer);
+	free(resultBuffer);
 	
 	// free everything and exit
 	free(lines);

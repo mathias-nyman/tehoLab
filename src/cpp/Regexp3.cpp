@@ -110,23 +110,27 @@ int main(int argc, char** argv)
 	
 	vector<string>* lines = getLines(*configuration.filename);
 	
-	if(!configuration.dryRun)
+	// run test
+	
+	string patternString;
+	if(configuration.withOrOperator)
 	{
-		// run test
-		
-		string patternString;
-		if(configuration.withOrOperator)
-		{
-			patternString = "\\d+|\\w+\\d+\\.";
-		}
-		else
-		{
-			patternString = "\\d+";
-		}
-		
-		regex pattern(patternString);
-		
-		int countMatches = 0;
+		patternString = "\\d+|\\w+\\d+\\.";
+	}
+	else
+	{
+		patternString = "\\d+";
+	}
+	
+	regex pattern(patternString);
+	
+	int countMatches = 0;
+	if(configuration.dryRun)
+	{
+		for(vector<string>::const_iterator iterator = lines->begin(); iterator != lines->end(); iterator++);
+	}
+	else
+	{
 		for(vector<string>::const_iterator iterator = lines->begin(); iterator != lines->end(); iterator++)
 		{
 			if(regex_search(*iterator, pattern))
@@ -134,9 +138,9 @@ int main(int argc, char** argv)
 				countMatches++;
 			}
 		}
-		
-		//cout << countMatches << endl;
 	}
+	
+	//cout << countMatches << endl;
 	
 	delete lines;
 	

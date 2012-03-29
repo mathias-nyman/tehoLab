@@ -93,16 +93,20 @@ int main(int argc, char** argv)
 	
 	vector<string>* lines = getLines(*configuration.filename);
 	
-	if(!configuration.dryRun)
+	string result;
+	if(configuration.dryRun)
 	{
-		string result;
+		for(vector<string>::const_iterator iterator = lines->begin(); iterator != lines->end(); iterator++);
+	}
+	else
+	{
 		for(vector<string>::const_iterator iterator = lines->begin(); iterator != lines->end(); iterator++)
 		{
 			result.append(*iterator + '\n');
 		}
-		
-		//cout << result << endl;
 	}
+	
+	//cout << result << endl;
 	
 	delete lines;
 	

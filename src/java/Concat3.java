@@ -111,12 +111,18 @@ public class Concat3
 		// get lines
 		List<CharSequence> lines = getLines(configuration.file);
 		
-		if(!configuration.dryRun)
+		// is it allowed to 'know' the input length beforehand? Assuming not...
+		StringBuilder stringBuilder = new StringBuilder(/*(int)configuration.file.length()*/);
+		
+		if(configuration.dryRun)
+		{
+			// just looop
+			
+			for(@SuppressWarnings("unused") CharSequence line: lines);
+		}
+		else
 		{
 			// run test
-			
-			// is it allowed to 'know' the input length beforehand? Assuming not...
-			StringBuilder stringBuilder = new StringBuilder(/*(int)configuration.file.length()*/);
 			
 			for(CharSequence line: lines)
 			{

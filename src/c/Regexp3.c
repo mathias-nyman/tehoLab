@@ -152,34 +152,40 @@ int main(int argc, char **argv)
 	}
 	
 	// run the regexp test
-	if(!dryRun)
+	
+	const char* regex;
+	if(withOrOperator)
 	{
-		const char* regex;
-		if(withOrOperator)
-		{
-			regex = "[0-9]+|[a-zA-Z_0-9]+[0-9]+\\.";
-		}
-		else
-		{
-			regex = "[0-9]+";
-		}
-		
-		// compile regexp matcher
-		regex_t patternBuffer;
-		
-		// REG_NOSUB: only need to know that it does in fact match, not where it matches
-		// REG_EXTENDED: support "|" and "+" operator
-		int regcompRet = regcomp(&patternBuffer, regex, REG_NOSUB | REG_EXTENDED);
-		if(regcompRet)
-		{
-			free(lines);
-			free(buffer);
-			return EXIT_FAILURE;
-		}
-		
-		// iterate each line
-		int countMatches = 0;
-		int i;
+		regex = "[0-9]+|[a-zA-Z_0-9]+[0-9]+\\.";
+	}
+	else
+	{
+		regex = "[0-9]+";
+	}
+	
+	// compile regexp matcher
+	regex_t patternBuffer;
+	
+	// REG_NOSUB: only need to know that it does in fact match, not where it matches
+	// REG_EXTENDED: support "|" and "+" operator
+	int regcompRet = regcomp(&patternBuffer, regex, REG_NOSUB | REG_EXTENDED);
+	if(regcompRet)
+	{
+		free(lines);
+		free(buffer);
+		return EXIT_FAILURE;
+	}
+	
+	// iterate each line
+	int countMatches = 0;
+	int i;
+	
+	if(dryRun)
+	{
+		for(i = 0; i < lineCount; i++);
+	}
+	else
+	{
 		for(i = 0; i < lineCount; i++)
 		{
 			//printf("%s\n", lines[i]);
@@ -199,11 +205,11 @@ int main(int argc, char **argv)
 				return EXIT_FAILURE;
 			}
 		}
-		
-		regfree(&patternBuffer);
-		
-		//printf("%d", countMatches);
 	}
+	
+	regfree(&patternBuffer);
+	
+	//printf("%d", countMatches);
 	
 	// free everything and exit
 	free(lines);

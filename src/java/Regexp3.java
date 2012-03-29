@@ -127,24 +127,31 @@ public class Regexp3
 		// get lines
 		List<CharSequence> lines = getLines(configuration.file);
 		
-		if(!configuration.dryRun)
+		String patternString;
+		if(configuration.withOrOperator)
+		{
+			patternString = "\\d+|\\w+\\d+\\.";
+		}
+		else
+		{
+			patternString = "\\d+";
+		}
+		
+		Pattern pattern = Pattern.compile(patternString);
+		
+		@SuppressWarnings("unused")
+		int countMatches = 0;
+		
+		if(configuration.dryRun)
+		{
+			// just loooping
+			
+			for(@SuppressWarnings("unused") CharSequence line: lines);
+		}
+		else
 		{
 			// run test
 			
-			String patternString;
-			if(configuration.withOrOperator)
-			{
-				patternString = "\\d+|\\w+\\d+\\.";
-			}
-			else
-			{
-				patternString = "\\d+";
-			}
-			
-			Pattern pattern = Pattern.compile(patternString);
-			
-			@SuppressWarnings("unused")
-			int countMatches = 0;
 			for(CharSequence line: lines)
 			{
 				Matcher matcher = pattern.matcher(line);
