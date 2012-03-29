@@ -7,8 +7,12 @@ def main():
     f.close()
 
     if len(sys.argv) > 2 and sys.argv[2] == '--dry-run':
+        for line in lines:
+            pass
         return
     if len(sys.argv) > 3 and sys.argv[3] == '--dry-run':
+        for line in lines:
+            pass
         return
 
     #Pre-compile regexp before comparing to it
