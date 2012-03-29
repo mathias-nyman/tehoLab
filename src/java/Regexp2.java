@@ -16,9 +16,11 @@ class Regexp2 {
         } catch (Exception e) { System.out.println(e); }
 
         if (args.length > 1 && args[1].equals("--dry-run")) {
+            for (int i=0; i < lines.size() ; i++) { }
             return;
         }
         if (args.length > 2 && args[2].equals("--dry-run")) {
+            for (int i=0; i < lines.size() ; i++) { }
             return;
         }
 
