@@ -2,7 +2,7 @@
 
 if [ $# -lt 2 ]
 then
-    echo -e "Usage: $0 <SCRIPT_TO_PARSE> <REPETITIONS> [--with-or-operator]"
+    echo -e "Usage: $0 PROG=[Concat|Regexp] REPETITIONS [--with-or-operator]"
     exit 0
 fi
 
@@ -12,13 +12,13 @@ for lang in C C++ Java Python Perl
 do
     line="$n"
     declare -a ordinary
-    for res in $($1 $lang $2 $3 3>&1 1>&2 2>&3 | sed -e 's/^[a-zA-Z ]*//' -n -e  2p -e 5p -e 8p)
+    for res in $(./run.sh $1 $lang $2 $3 3>&1 1>&2 2>&3 | sed -e 's/^[a-zA-Z ]*//' -n -e  2p -e 5p -e 8p)
     do
         ordinary+=("$res")
     done
 
     declare -a dry_run
-    for res in $($1 $lang $2 $3 --dry-run 3>&1 1>&2 2>&3 | sed -e 's/^[a-zA-Z ]*//' -n -e  2p -e 5p -e 8p)
+    for res in $(./run.sh $1 $lang $2 $3 --dry-run 3>&1 1>&2 2>&3 | sed -e 's/^[a-zA-Z ]*//' -n -e  2p -e 5p -e 8p)
     do
         dry_run+=("$res")
     done

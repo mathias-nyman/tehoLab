@@ -37,10 +37,10 @@ sub main {
         }
     }
 
-    if ($#ARGV > 2 and $ARGV[2] eq '--dry-run') {
+    if ($#ARGV > 1 and $ARGV[2] eq '--dry-run') {
         return;
     }
-    if ($#ARGV > 3 and $ARGV[3] eq '--dry-run') {
+    if ($#ARGV > 2 and $ARGV[3] eq '--dry-run') {
         return;
     }
 
