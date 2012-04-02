@@ -10,8 +10,8 @@
 #include <string.h>
 #include <time.h>
 
-#define MAX_LINE_LENGTH 3000
 #define MAX_WORD_LENGTH 80
+#define MAX_LINE_LENGTH 20000*MAX_WORD_LENGTH
 
 void concatenate(const char *input_file, int dry_run)
 {

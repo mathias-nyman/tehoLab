@@ -8,11 +8,11 @@ sub main {
     my $withOrOperator = ($#ARGV > 0 and $ARGV[1] eq '--with-or-operator') ? 1:0;
     my $amountFound = 0;
 
-    if ($#ARGV > 1 and $ARGV[1] eq '--dry-run') {
+    if ($#ARGV > 0 and $ARGV[1] eq '--dry-run') {
         foreach (@lines) { }
         return;
     }
-    if ($#ARGV > 2 and $ARGV[2] eq '--dry-run') {
+    if ($#ARGV > 1 and $ARGV[2] eq '--dry-run') {
         foreach (@lines) { }
         return;
     }
